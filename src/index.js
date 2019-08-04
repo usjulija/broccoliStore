@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import BroccoliStore from './components/BroccoliStore';
+import MainPage from './components/MainPage';
 import './App.css';
 
-render(<BroccoliStore/>, document.querySelector('#root'));
+render(<MainPage />, document.querySelector('#root'));
