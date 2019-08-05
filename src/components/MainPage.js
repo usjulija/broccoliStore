@@ -9,6 +9,10 @@ class MainPage extends React.Component {
     toggleHover = () => {
         this.setState({ hover: !this.state.hover });
     }
+
+    loadStore =() => {
+        this.props.history.push("store");
+    }
     
     render() {
         const pulseAnimation = this.state.hover ? "" : "pulse";
@@ -22,7 +26,19 @@ class MainPage extends React.Component {
                     <span className="right-main-page-ribbon"></span>
                     <div className="center-main-page-ribbon">
                         <p className="logo-font">Broccoli</p>
-                        <svg className={pulseAnimation} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <svg 
+                            role="button" 
+                            aria-label="button to go to store" 
+                            tabIndex="0" 
+                            className={pulseAnimation} 
+                            onClick={this.loadStore} 
+                            onMouseEnter={this.toggleHover} 
+                            onMouseLeave={this.toggleHover} 
+                            onFocus={this.toggleHover} 
+                            onBlur={this.toggleHover} 
+                            viewBox="0 0 512 512" 
+                            xmlns="http://www.w3.org/2000/svg">
+                            <title>Go to Store!</title>
                             <path className="change-color" d="m512 256c0 141.386719-114.613281 256-256 256s-256-114.613281-256-256 114.613281-256 256-256 256 114.613281 256 256zm0 0" fill="#ffd400"/>
                             <path className={hideShadow} d="m511.828125 264.917969-139.71875-139.71875-40.617187 44.824219-97.894532-97.894532-92.125 119.339844 51.425782 51.425781-12.808594 69.316407 99.027344 99.023437 11.382812 98.445313c122.1875-16.460938 217.023438-119.113282 221.328125-244.761719zm0 0" fill="#9b918bb8"/>
                             <path className={rotation} d="m288.066406 331.167969h-64.132812c-16.535156 0-32.519532-6.910157-43.84375-18.957031-11.328125-12.050782-17.238282-28.425782-16.222656-44.929688l7.335937-118.816406 38.925781 2.402344-7.332031 118.816406c-.367187 5.894531 1.664063 11.507812 5.707031 15.8125 4.042969 4.300781 9.523438 6.671875 15.429688 6.671875h64.132812c5.90625 0 11.382813-2.371094 15.429688-6.671875 4.042968-4.304688 6.070312-9.917969 5.707031-15.8125l-7.332031-118.816406 38.925781-2.402344 7.332031 118.816406c1.019532 16.503906-4.890625 32.878906-16.21875 44.929688-11.328125 12.046874-27.308594 18.957031-43.84375 18.957031zm0 0" fill="#fff"/>
