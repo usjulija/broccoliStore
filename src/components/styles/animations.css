@@ -1,0 +1,191 @@
+/* ===== Animations ==== */
+/* pulse, slideDown, fadeIn: ref. Justin Aguilar, www.justinaguilar.com/animations/ */
+
+/* pulse */
+.pulse {
+	animation-name: pulse;
+	-webkit-animation-name: pulse;	
+
+	animation-duration: 2.5s;	
+	-webkit-animation-duration: 2.5s;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+	0% { transform: scale(0.9); }
+	50% { transform: scale(1); }	
+	100% { transform: scale(0.9); }			
+}
+
+@-webkit-keyframes pulse {
+	0% { -webkit-transform: scale(0.95); }
+	50% { -webkit-transform: scale(1); }	
+	100% { -webkit-transform: scale(0.95); }			
+}
+
+/* slideDown */
+.slideDown{
+	animation-name: slideDown;
+	-webkit-animation-name: slideDown;	
+
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;	
+
+	visibility: visible !important;						
+}
+
+@keyframes slideDown {
+	0% {
+		transform: translateY(-100%);
+	}
+	50%{
+		transform: translateY(8%);
+	}
+	65%{
+		transform: translateY(-4%);
+	}
+	80%{
+		transform: translateY(4%);
+	}
+	95%{
+		transform: translateY(-2%);
+	}			
+	100% {
+		transform: translateY(0%);
+	}		
+}
+
+@-webkit-keyframes slideDown {
+	0% {
+		-webkit-transform: translateY(-100%);
+	}
+	50%{
+		-webkit-transform: translateY(8%);
+	}
+	65%{
+		-webkit-transform: translateY(-4%);
+	}
+	80%{
+		-webkit-transform: translateY(4%);
+	}
+	95%{
+		-webkit-transform: translateY(-2%);
+	}			
+	100% {
+		-webkit-transform: translateY(0%);
+	}	
+}
+
+/* fadeIn */
+.fadeIn{
+	animation-name: fadeIn;
+	-webkit-animation-name: fadeIn;	
+
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
+
+	animation-timing-function: ease-in-out;	
+	-webkit-animation-timing-function: ease-in-out;		
+
+	visibility: visible !important;	
+}
+
+@keyframes fadeIn {
+	0% {
+		transform: scale(0);
+		opacity: 0.0;		
+	}
+	60% {
+		transform: scale(1.1);	
+	}
+	80% {
+		transform: scale(0.9);
+		opacity: 1;	
+	}	
+	100% {
+		transform: scale(1);
+		opacity: 1;	
+	}		
+}
+
+@-webkit-keyframes fadeIn {
+	0% {
+		-webkit-transform: scale(0);
+		opacity: 0.0;		
+	}
+	60% {
+		-webkit-transform: scale(1.1);
+	}
+	80% {
+		-webkit-transform: scale(0.9);
+		opacity: 1;	
+	}	
+	100% {
+		-webkit-transform: scale(1);
+		opacity: 1;	
+	}		
+}
+
+/* change-color */
+.change-color {
+	animation-name: change-color;
+	-webkit-animation-name: change-color;	
+
+	animation-duration: 2.5s;	
+	-webkit-animation-duration: 2.5s;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@keyframes change-color {
+    0% { fill: #e3c5a6; }
+	50% { fill: #a6c087; }	
+	100% { fill: #e3c5a6; }		
+}
+
+@-webkit-keyframes change-color {
+    0% { fill: #e3c5a6; }
+	50% { fill: #a6c087; }	
+	100% { fill: #e3c5a6; }			
+}
+
+/* rotation */
+.rotation{
+    transform-origin: 50%;
+	animation-name: rotation;
+	-webkit-animation-name: rotation;	
+
+	animation-duration: 1.5s;	
+	-webkit-animation-duration: 1.5s;
+    -webkit-transform-origin: 50%;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);	
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);	
+	}						
+}
+
+@-webkit-keyframes rotation {
+	0% {
+		-webkit-transform: rotate(0deg);	
+	}
+	50% {
+		-webkit-transform: rotate(180deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);	
+	}				
+}

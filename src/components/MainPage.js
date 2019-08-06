@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/mainpage.css';
+import './styles/animations.css';
 
 class MainPage extends React.Component {
     state = {

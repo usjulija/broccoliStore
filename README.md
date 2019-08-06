@@ -5,6 +5,7 @@
 * Main page background picture by [Oleg Magni](https://www.pexels.com/photo/variety-of-fruits-890507/)
 * Logo design by [Freepik](freepik.com)
 * Icons design by [Flaticon](flaticon.com)
+* CSS animations by [Justin Aguilar](http://www.justinaguilar.com/animations/#)
 
 ##Dependencies
 *[react-router-dom](https://www.npmjs.com/package/react-router-dom) - Is responsible for rendering different components based on the user navigation. 

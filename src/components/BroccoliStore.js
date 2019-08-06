@@ -10,12 +10,17 @@ class BroccoliStore extends React.Component {
   toggleNavMenu= () => {
       this.setState({ mobileVisible: !this.state.mobileVisible });
   }
+
+  loadPage = (selection) => {
+    this.props.history.push(selection);
+  }
   
   render() {
       return (
           <StoreMenu
               toggleNavMenu={this.toggleNavMenu}
-              mobileVisible={this.state.mobileVisible} />
+              mobileVisible={this.state.mobileVisible}
+              loadPage={this.loadPage} />
       );
   }
 }
