@@ -1,8 +1,11 @@
 import React from 'react';
 import StoreMenu from './StoreMenu';
+import grocery from '../foodData';
+import ProductsGallery from './ProductsGallery';
 
 class BroccoliStore extends React.Component {
   state = {
+    products: grocery,
     mobileVisible: false //state of mobile menu
   }
     
@@ -17,10 +20,13 @@ class BroccoliStore extends React.Component {
   
   render() {
       return (
+        <React.Fragment>
           <StoreMenu
-              toggleNavMenu={this.toggleNavMenu}
-              mobileVisible={this.state.mobileVisible}
-              loadPage={this.loadPage} />
+            toggleNavMenu={this.toggleNavMenu}
+            mobileVisible={this.state.mobileVisible}
+            loadPage={this.loadPage} />
+          <ProductsGallery products={this.state.products} />
+        </React.Fragment>
       );
   }
 }
