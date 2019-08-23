@@ -1,15 +1,84 @@
-import React from 'react';
+import React from "react";
+import BackToStore from "./BackToStore";
+import { formatPrice } from "../helper";
 
 class Cart extends React.Component {
   render() {
+    const orderIds = Object.keys(this.props.order);
+    const toggleTabindex = this.props.popUpVisible ? "-1" : "0";
+    const total = orderIds.reduce((prevTotal, key) => {
+      if (this.props.products[key]) {
+        return (
+          prevTotal + this.props.order[key] * this.props.products[key].price
+        );
+      } else {
+        return prevTotal;
+      }
+    }, 0);
     return (
-      <header className="not-found">
-        <h2>This is Cart!!!!</h2>
-        <button className="store-button">
-          <span>Shop Now </span>
-        </button>
-      </header>
-    )
+      <section className="cart">
+        <BackToStore loadPage={this.props.loadPage} popUpVisible={this.props.popUpVisible} />
+        <h1>Your shopping cart</h1>
+        <ul className="products-in-cart">
+          {orderIds.map(key => (
+            <li className="selected-product" key={key}>
+              <button
+                onClick={() => {
+                  this.props.removeFromCart(key, this.props.products[key].name);
+                }}
+                aria-label="remove from cart"
+                className="close"
+                title="remove product"
+                tabIndex={toggleTabindex}
+              >
+                <svg
+                  fill="#6c3a32"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 47.971 47.971"
+                >
+                  <path d="M28.228 23.986L47.092 5.122a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23.986 19.744 5.121.88a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242l18.865 18.864L.879 42.85a2.998 2.998 0 1 0 4.242 4.241l18.865-18.864L42.85 47.091c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242L28.228 23.986z" />
+                </svg>
+              </button>
+              <img
+                src={this.props.products[key].imageUrl}
+                alt={this.props.products[key].name}
+              />
+              <h4>{this.props.products[key].name}</h4>
+              <div className="price-for-cart">
+                <p>{formatPrice(this.props.products[key].price)}</p>
+                <p>
+                  <span
+                    onClick={()=>{this.props.removeOneItem(key)}}
+                    role="button"
+                    aria-label="remove one item"
+                    title="remove"
+                  >
+                    -
+                  </span>
+                  {this.props.order[key]}
+                  <span
+                    onClick={() => {
+                      this.props.addToCart(key, this.props.products[key].name);
+                    }}
+                    role="button"
+                    aria-label="add one item"
+                    title="add"
+                  >
+                    +
+                  </span>
+                </p>
+                <p>
+                  {formatPrice(
+                    this.props.order[key] * this.props.products[key].price
+                  )}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <h2 className="total">Total: {formatPrice(total)}</h2>
+      </section>
+    );
   }
 }
 

@@ -8,10 +8,12 @@ class ProductsGallery extends React.Component {
         {Object.keys(this.props.products).map(key => (
             <Product
                 key={key}
+                addToCart = {this.props.addToCart}
                 details={this.props.products[key]}
                 loadModal={this.props.loadModal}
                 priceCalculator={this.props.priceCalculator}
                 modalVisible={this.props.modalVisible}
+                popUpVisible={this.props.popUpVisible}
             />
         ))}
       </div>

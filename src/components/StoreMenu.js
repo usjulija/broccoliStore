@@ -3,15 +3,14 @@ import logo from "./images/logo-small.png";
 
 class StoreMenu extends React.Component {
   render() {
+    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
     let visibility = this.props.mobileVisible ? "show" : " ";
-    const toggleTabindex = this.props.modalVisible ? "-1" : "0";
     let content;
     if (this.props.mobileVisible) {
       content = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.971 47.971"><path fill="#6c3a32" d="M28.228 23.986L47.092 5.122a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23.986 19.744 5.121.88a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242l18.865 18.864L.879 42.85a2.998 2.998 0 1 0 4.242 4.241l18.865-18.864L42.85 47.091c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242L28.228 23.986z"/></svg>;
     } else {
       content = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#fff" d="M491.3 235.3H20.7a20.7 20.7 0 1 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4zM491.3 78.4H20.7a20.7 20.7 0 0 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4zM491.3 392.2H20.7a20.7 20.7 0 1 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4z"/></svg>;
     }
-
     return (
       <nav>
         <section className="nav-logo-container">
@@ -34,7 +33,7 @@ class StoreMenu extends React.Component {
         <section className="nav-buttons-container" id={visibility}>
           <button
             onClick={() => {
-              this.props.loadPage("store");
+              this.props.loadPage("products");
             }}
             className="button"
             id="color-one"
@@ -54,7 +53,7 @@ class StoreMenu extends React.Component {
           </button>
           <button
             onClick={() => {
-              this.props.loadPage("store/cart");
+              this.props.loadPage("cart");
             }}
             className="button"
             id="color-two"
@@ -71,6 +70,7 @@ class StoreMenu extends React.Component {
                 d="M273.1 325a8 8 0 0 0-8 8v94c0 5-4 9.1-9.1 9.1s-9-4-9-9V298.7c0-5 4-9.1 9-9.1s9 4 9 9a8 8 0 0 0 16.1 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM341.5 325a8 8 0 0 0-8 8v94a9.1 9.1 0 0 1-18.2 0V298.8a9.1 9.1 0 0 1 18.2 0 8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM410 325a8 8 0 0 0-8.1 8v94a9.1 9.1 0 0 1-18.2 0V298.8a9.1 9.1 0 0 1 18.2 0 8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM136.3 325a8 8 0 0 0-8 8v94a9.1 9.1 0 0 1-18.2 0V298.8c0-5 4-9.1 9-9.1s9.2 4 9.2 9a8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM204.7 325a8 8 0 0 0-8 8v94a9.1 9.1 0 0 1-18.2 0V298.8c0-5 4-9.1 9-9.1s9.2 4 9.2 9a8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8z"
               />
             </svg>
+            <span className="cart-number">{this.props.totalItems}</span>
           </button>
           <button
             className="button"
@@ -95,7 +95,7 @@ class StoreMenu extends React.Component {
           </button>
           <button
             onClick={() => {
-              this.props.loadPage("store/login");
+              this.props.loadPage("login");
             }}
             className="button"
             id="color-four"
