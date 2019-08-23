@@ -7,7 +7,6 @@ class AddProduct extends React.Component {
   discountRef = React.createRef();
   descriptionRef = React.createRef();
   imageUrlRef = React.createRef();
-
   
   createProduct = e => {
       e.preventDefault();
@@ -25,15 +24,24 @@ class AddProduct extends React.Component {
         e.currentTarget.reset();
     };
     render() {
-    const toggleTabindex = this.props.modalVisible ? "-1" : "0";
+    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
+    let names = [];
+    Object.keys(this.props.products).map(key => {
+        return names.push(this.props.products[key].category);
+    });
+    let categoryName = [...new Set(names)];
     return (
       <form className="product-form" onSubmit={this.createProduct}>
-        <input tabIndex={toggleTabindex} type="text" name="name" ref={this.nameRef} placeholder="Product Name" />
-        <input tabIndex={toggleTabindex} type="text" name="category" ref={this.categoryRef} placeholder="Category Name" />
-        <input tabIndex={toggleTabindex} type="text" name="price" ref={this.priceRef} placeholder="Product Price" />
-        <input tabIndex={toggleTabindex} type="text" name="discount" ref={this.discountRef} placeholder="Product Discount" />
-        <textarea tabIndex={toggleTabindex} name="description" ref={this.descriptionRef} placeholder="Description" />
-        <input tabIndex={toggleTabindex} type="text" name="imageUrl" ref={this.imageUrlRef} placeholder="Product Image" />
+        <input tabIndex={toggleTabindex} type="text" name="name" ref={this.nameRef} placeholder="Product Name" required/>
+        <select tabIndex={toggleTabindex} name="category" ref={this.categoryRef} required>
+            {categoryName.map(category => (
+                <option value={category} key={category}>{category}</option>
+            ))}
+        </select>
+        <input tabIndex={toggleTabindex} type="text" name="price" ref={this.priceRef} placeholder="Product Price in Cents" required/>
+        <input tabIndex={toggleTabindex} type="text" name="discount" ref={this.discountRef} placeholder="Discount: number from 0 to 100" required/>
+        <textarea tabIndex={toggleTabindex} name="description" ref={this.descriptionRef} placeholder="Description" required/>
+        <input tabIndex={toggleTabindex} type="text" name="imageUrl" ref={this.imageUrlRef} placeholder="Image URL" required/>
         <button tabIndex={toggleTabindex}>+ Add Product</button>
       </form>
     );

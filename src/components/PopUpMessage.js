@@ -6,9 +6,11 @@ class PopUpMessage extends React.Component {
     const popUpVisibility = this.props.popUpVisible ? "modal" : "hide";
     let content;
     if (this.props.popUpState === "add") {
-        content = "is added to";
+        content = "is added to your cart!";
     } else if (this.props.popUpState === "remove") {
-        content = "is removed from"
+        content = "is removed from your cart!"
+    } else if (this.props.popUpState === "removeAdmin") {
+      content = "is removed from the store!"
     }
     return (
       <section className={popUpVisibility}>
@@ -26,7 +28,7 @@ class PopUpMessage extends React.Component {
                     </svg>
                 </button>
             </div>
-            <h2>{this.props.popUpName} {content} your cart!</h2>
+            <h2>{this.props.popUpName} {content}</h2>
           </div>
       </section>
     )

@@ -197,6 +197,13 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.5s;
+}
+
+#color-two:hover .cart-number,
+#color-two:focus .cart-number {
+    background-color: white;
+    color: #04534b;
 }
 
 /* ===== Products Gallery ===== */
@@ -387,7 +394,8 @@ nav {
 
 .product-form input,
 .product-form textarea,
-.product-form button {
+.product-form button,
+.product-form select {
   width: 100%;
   padding: 10px 15px;
   font-family: "Open Sans Condensed", sans-serif;
@@ -395,10 +403,12 @@ nav {
   margin-bottom: 4px;
   margin-right: 4px;
   border: 1px solid #cecece;
+  text-transform: capitalize;
 }
 
 .product-form input:focus,
-.product-form textarea:focus {
+.product-form textarea:focus,
+.product-form select:focus {
   outline: 3px solid #1dd3b0;
 }
 
@@ -579,7 +589,8 @@ nav {
 }
 
 @media screen and (min-width: 500px) {
-  .product-form input {
+  .product-form input,
+  .product-form select {
     width: calc(50% - 4px);
   }
   .product-form input[name="imageUrl"] {

@@ -10,18 +10,42 @@ import PopUpMessage from "./PopUpMessage";
 
 class BroccoliStore extends React.Component {
   state = {
-    products: grocery,
+    products: {},
     order: {}, //items in the order
     totalItems: 0, //number of items in the cart
-    displayContent: "products", //what content displayed on page "products", "login" or "cart"
+    displayContent: "cart", //what content displayed on page "products", "login" or "cart"
     mobileVisible: false, //state of mobile menu
     modalVisible: false, //state of modal
     detailsForModal: grocery[0], //data for product modal content
     modalAdminView: false, //modified content for admin view
     popUpVisible: false, //state of pop up message
-    popUpState: "add", //pop up message for "remove" or for "add"
+    popUpState: "add", //pop up message for "remove", "add", "removeAdmin"
     popUpName: "string"
   };
+
+  componentDidMount() {
+    const localStorageOrder = localStorage.getItem("order");
+    const localStorageProducts = localStorage.getItem("products");
+    const loadTotalItems = localStorage.getItem("totalItems");
+    if (localStorageOrder) {
+      this.setState({
+        order: JSON.parse(localStorageOrder),
+        totalItems: JSON.parse(loadTotalItems)
+      });
+    }
+
+    if (localStorageProducts) {
+      this.setState({ products: JSON.parse(localStorageProducts) });
+    } else {
+      this.setState({ products: grocery });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem("order", JSON.stringify(this.state.order));
+    localStorage.setItem("products", JSON.stringify(this.state.products));
+    localStorage.setItem("totalItems", JSON.stringify(this.state.totalItems));
+  }
 
   loadPage = selection => {
     this.setState({ displayContent: selection });
@@ -31,7 +55,7 @@ class BroccoliStore extends React.Component {
   toggleNavMenu = () => {
     this.setState({ mobileVisible: !this.state.mobileVisible });
   };
-  
+
   //calculates price with or without discount
   priceCalculator = (price, discount) => {
     if (discount > 0) {
@@ -46,7 +70,7 @@ class BroccoliStore extends React.Component {
       return <p>{formatPrice(price)}</p>;
     }
   };
-  
+
   //info modal
   loadModal = (details, adminView) => {
     if (adminView === true) {
@@ -59,16 +83,35 @@ class BroccoliStore extends React.Component {
       modalVisible: true
     });
   };
-  
+
   closeModal = () => {
     this.setState({ modalVisible: false });
   };
 
-  //admin functions: add new product
+  //admin functions:
+  //add new product
   addProductToStore = product => {
     const products = { ...this.state.products };
-    products[Date.now()] = product;
+    products[product.id] = product;
     this.setState({ products });
+  };
+
+  //modify existing products
+  updateProduct = (key, newProduct) => {
+    const products = { ...this.state.products };
+    products[key] = newProduct;
+    this.setState({ products });
+  };
+
+  //remove existing products
+  removeProduct = (key, name) => {
+    const products = { ...this.state.products };
+    const order = { ...this.state.order };
+    delete products[key];
+    delete order[key];
+    this.setState({ products, order });
+    this.loadPopUp(name, "removeAdmin");
+    this.totalItemsCalculator(order);
   };
 
   //cart functions:
@@ -91,14 +134,14 @@ class BroccoliStore extends React.Component {
   };
 
   //add and remove only one item from the cart
-  addOneItem = (index) => {
+  addOneItem = index => {
     const order = { ...this.state.order };
     order[index] = order[index] + 1 || 1;
     this.setState({ order });
     this.totalItemsCalculator(order);
   };
 
-  removeOneItem = (index) => {
+  removeOneItem = index => {
     const order = { ...this.state.order };
     if (order[index] > 1) {
       order[index] = order[index] - 1;
@@ -117,31 +160,39 @@ class BroccoliStore extends React.Component {
         popUpName: name,
         popUpVisible: true
       });
-    } else if( state === "remove") {
+    } else if (state === "remove") {
       this.setState({
         popUpState: "remove",
         popUpName: name,
         popUpVisible: true
       });
+    } else if (state === "removeAdmin") {
+      this.setState({
+        popUpState: "removeAdmin",
+        popUpName: name,
+        popUpVisible: true
+      });
     }
-  }
+  };
 
   closePopUp = () => {
     this.setState({
       popUpVisible: false
     });
-  }
+  };
 
   //total number of items in the cart
-  totalItemsCalculator = (order) => {
+  totalItemsCalculator = order => {
+    console.log(order);
     const total = Object.keys(order).reduce((prevTotal, key) => {
-      if(this.state.products[key]) {
+      if (this.state.products[key]) {
         return prevTotal + order[key];
       }
       return prevTotal;
     }, 0);
-    this.setState({totalItems: total});
-  }
+    console.log(total);
+    this.setState({ totalItems: total });
+  };
 
   render() {
     let content;
@@ -159,10 +210,15 @@ class BroccoliStore extends React.Component {
     } else if (this.state.displayContent === "login") {
       content = (
         <Login
+          products={this.state.products}
           addProductToStore={this.addProductToStore}
           loadPage={this.loadPage}
           loadModal={this.loadModal}
-          modalVisible={this.state.modalVisible}/>
+          modalVisible={this.state.modalVisible}
+          popUpVisible={this.state.popUpVisible}
+          updateProduct={this.updateProduct}
+          removeProduct={this.removeProduct}
+        />
       );
     } else if (this.state.displayContent === "cart") {
       content = (
@@ -170,7 +226,7 @@ class BroccoliStore extends React.Component {
           loadPage={this.loadPage}
           order={this.state.order}
           products={this.state.products}
-          removeFromCart = {this.removeFromCart}
+          removeFromCart={this.removeFromCart}
           addToCart={this.addOneItem}
           removeOneItem={this.removeOneItem}
           popUpVisible={this.state.popUpVisible}
@@ -196,11 +252,12 @@ class BroccoliStore extends React.Component {
           modalAdminView={this.state.modalAdminView}
           loadPage={this.loadPage}
         />
-        <PopUpMessage 
+        <PopUpMessage
           popUpVisible={this.state.popUpVisible}
           popUpName={this.state.popUpName}
           popUpState={this.state.popUpState}
-          closePopUp={this.closePopUp}/>
+          closePopUp={this.closePopUp}
+        />
         <div>{content}</div>
       </React.Fragment>
     );
