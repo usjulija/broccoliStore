@@ -10,10 +10,11 @@ import PopUpMessage from "./PopUpMessage";
 
 class BroccoliStore extends React.Component {
   state = {
-    products: {},
+    products: {}, //all products available
     order: {}, //items in the order
+    filteredProducts: [], //visible products
     totalItems: 0, //number of items in the cart
-    displayContent: "cart", //what content displayed on page "products", "login" or "cart"
+    displayContent: "products", //what content displayed on page "products", "login" or "cart"
     mobileVisible: false, //state of mobile menu
     modalVisible: false, //state of modal
     detailsForModal: grocery[0], //data for product modal content
@@ -26,6 +27,7 @@ class BroccoliStore extends React.Component {
   componentDidMount() {
     const localStorageOrder = localStorage.getItem("order");
     const localStorageProducts = localStorage.getItem("products");
+    const localStorageFiltered = localStorage.getItem("filteredProducts");
     const loadTotalItems = localStorage.getItem("totalItems");
     if (localStorageOrder) {
       this.setState({
@@ -35,9 +37,20 @@ class BroccoliStore extends React.Component {
     }
 
     if (localStorageProducts) {
-      this.setState({ products: JSON.parse(localStorageProducts) });
+      if (localStorageFiltered) {
+        this.setState({
+          products: JSON.parse(localStorageProducts),
+          filteredProducts: JSON.parse(localStorageFiltered)
+        });
+      } else {
+        this.setState({
+          products: JSON.parse(localStorageProducts)
+        }, () => {
+          this.filterProducts("all");
+        });
+      }
     } else {
-      this.setState({ products: grocery });
+      this.setState({ products: grocery }, () => {this.filterProducts("all")});
     }
   }
 
@@ -45,6 +58,10 @@ class BroccoliStore extends React.Component {
     localStorage.setItem("order", JSON.stringify(this.state.order));
     localStorage.setItem("products", JSON.stringify(this.state.products));
     localStorage.setItem("totalItems", JSON.stringify(this.state.totalItems));
+    localStorage.setItem(
+      "filteredProducts",
+      JSON.stringify(this.state.filteredProducts)
+    );
   }
 
   loadPage = selection => {
@@ -183,18 +200,36 @@ class BroccoliStore extends React.Component {
 
   //total number of items in the cart
   totalItemsCalculator = order => {
-    console.log(order);
     const total = Object.keys(order).reduce((prevTotal, key) => {
       if (this.state.products[key]) {
         return prevTotal + order[key];
       }
       return prevTotal;
     }, 0);
-    console.log(total);
     this.setState({ totalItems: total });
   };
 
+  //filter products by category
+  filterProducts = category => {
+    let newArray = [];
+    const products = { ...this.state.products };
+    if (category === "all") {
+      Object.keys(products).forEach(key => {
+        newArray.push(products[key]);
+      });
+    } else {
+      Object.keys(products).forEach(key => {
+        if (category === products[key].category) {
+          newArray.push(products[key]);
+        }
+      });
+    }
+    this.setState({ filteredProducts: newArray });
+  };
+
   render() {
+    const fixedBackground =
+      this.state.modalVisible || this.state.popUpVisible ? "fixed" : "";
     let content;
     if (this.state.displayContent === "products") {
       content = (
@@ -202,9 +237,11 @@ class BroccoliStore extends React.Component {
           modalVisible={this.state.modalVisible}
           popUpVisible={this.state.popUpVisible}
           products={this.state.products}
+          filteredProducts={this.state.filteredProducts}
           loadModal={this.loadModal}
           priceCalculator={this.priceCalculator}
           addToCart={this.addToCart}
+          filterProducts={this.filterProducts}
         />
       );
     } else if (this.state.displayContent === "login") {
@@ -236,14 +273,6 @@ class BroccoliStore extends React.Component {
 
     return (
       <React.Fragment>
-        <StoreMenu
-          toggleNavMenu={this.toggleNavMenu}
-          mobileVisible={this.state.mobileVisible}
-          modalVisible={this.state.modalVisible}
-          popUpVisible={this.state.popUpVisible}
-          loadPage={this.loadPage}
-          totalItems={this.state.totalItems}
-        />
         <Modal
           modalVisible={this.state.modalVisible}
           closeModal={this.closeModal}
@@ -258,7 +287,17 @@ class BroccoliStore extends React.Component {
           popUpState={this.state.popUpState}
           closePopUp={this.closePopUp}
         />
-        <div>{content}</div>
+        <div className={fixedBackground}>
+          <StoreMenu
+            toggleNavMenu={this.toggleNavMenu}
+            mobileVisible={this.state.mobileVisible}
+            modalVisible={this.state.modalVisible}
+            popUpVisible={this.state.popUpVisible}
+            loadPage={this.loadPage}
+            totalItems={this.state.totalItems}
+          />
+          <div>{content}</div>
+        </div>
       </React.Fragment>
     );
   }

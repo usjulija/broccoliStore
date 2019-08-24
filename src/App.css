@@ -24,6 +24,10 @@ body {
   font-family: "Amatic SC", cursive;
 }
 
+.fixed {
+  position: fixed;
+}
+
 /* ===== StoreMenu style ===== */
 nav {
   height: 120px;
@@ -216,6 +220,66 @@ nav {
   margin-top: 15px;
 }
 
+.products-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.categories-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center; 
+  margin-bottom: 15px;
+}
+
+.categories-list {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  height: 40px;
+  font-size: 17px;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  color: var(--brown);
+  background-color: #baddd2;
+  border: 0;
+  font-weight: bold;
+  display: none;
+  cursor: pointer;
+}
+
+.categories-list:focus {
+  outline: 3px solid #1dd3b0;
+}
+
+.categories-container button {
+  min-width: 125px;
+  height: 40px;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  background-color: #e9af00;
+  border: 0;
+  font-weight: bold;
+  color: var(--brown);
+  transition: 0.5s;
+  cursor: pointer;
+  margin: 3px;
+}
+
+.categories-container button:hover,
+.categories-container button:focus {
+  outline: 0;
+  color: #04534b;
+  background-color: #1dd3b0;
+}
+
 .product-container {
   width: 100%;
   max-width: 420px;
@@ -334,6 +398,19 @@ nav {
   display: none;
 }
 
+@media screen and (min-width: 660px) {
+  .categories-container {
+    max-width: 650px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1070px) {
+  .categories-container {
+    max-width: 1070px;
+  }
+}
+
 /* ===== Manager view ====== */
 .back-to-store {
   width: 100%;
@@ -347,6 +424,19 @@ nav {
   cursor: pointer;
   text-transform: uppercase;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-store svg {
+  width: 40px;
+  padding: 8px;
+  transition: 0.5s;
+}
+.back-to-store:hover svg,
+.back-to-store:focus svg {
+  fill: #04534b;
 }
 
 .back-to-store:hover,
@@ -518,6 +608,12 @@ nav {
 
 /* for screens of 600px and smaller */
 @media screen and (max-width: 600px) {
+  .categories-container {
+    display: none;
+  }
+  .categories-list {
+    display: block;
+  }
   .nav-buttons-container {
     display: none;
     width: 100%;

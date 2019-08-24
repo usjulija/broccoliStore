@@ -192,7 +192,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/freshcoffee.jpg"
     }, {
-        id: 23,
+        id: 24,
         name: "green tea (350g)",
         category: "tea",
         price: 449,
@@ -200,7 +200,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/greentea.jpg"
     }, {
-        id: 24,
+        id: 25,
         name: "herbal tea (350g)",
         category: "tea",
         price: 189,
@@ -208,7 +208,7 @@ const grocery = [
         discount: 5,
         imageUrl: "/images/herbstea.jpg"
     }, {
-        id: 25,
+        id: 26,
         name: "instant coffee (200g)",
         category: "coffee",
         price: 989,
@@ -216,7 +216,7 @@ const grocery = [
         discount: 5,
         imageUrl: "/images/coffee.jpg"
     }, {
-        id: 26,
+        id: 27,
         name: "lettuce (150g)",
         category: "vegetables",
         price: 149,
@@ -224,7 +224,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/lettuce.jpg"
     }, {
-        id: 27,
+        id: 28,
         name: "kiwi (1kg)",
         category: "fruits",
         price: 159,
@@ -232,7 +232,7 @@ const grocery = [
         discount: 10,
         imageUrl: "/images/kiwi.jpg"
     }, {
-        id: 28,
+        id: 29,
         name: "mango",
         category: "fruits",
         price: 65,
@@ -240,7 +240,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/manga.jpg"
     }, {
-        id: 29,
+        id: 30,
         name: "pomegranate (1kg)",
         category: "fruits",
         price: 259,
@@ -248,7 +248,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/pomegranate.jpg"
     }, {
-        id: 29,
+        id: 31,
         name: "dill (25g)",
         category: "vegetables",
         price: 49,
@@ -256,7 +256,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/dill.jpg"
     }, {
-        id: 30,
+        id: 32,
         name: "broccoli",
         category: "vegetables",
         price: 129,
@@ -264,7 +264,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/broccoli.jpg"
     }, {
-        id: 31,
+        id: 33,
         name: "avocado",
         category: "fruits",
         price: 63,
@@ -272,7 +272,7 @@ const grocery = [
         discount: 15,
         imageUrl: "/images/avocado.jpg"
     }, {
-        id: 32,
+        id: 34,
         name: "corn salad (50g)",
         category: "vegetables",
         price: 99,
@@ -280,7 +280,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/cornsalad.jpg"
     }, {
-        id: 33,
+        id: 35,
         name: "pork sausages (1kg)",
         category: "meat",
         price: 439,
@@ -288,7 +288,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/porksausages.jpg"
     }, {
-        id: 34,
+        id: 36,
         name: "dorada (1kg)",
         category: "fish",
         price: 899,
@@ -296,7 +296,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/dorada.jpg"
     }, {
-        id: 35,
+        id: 37,
         name: "sirloin (250g)",
         category: "meat",
         price: 799,
@@ -304,7 +304,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/sirloin.jpg"
     }, {
-        id: 35,
+        id: 38,
         name: "fruit juice (750ml)",
         category: "juice",
         price: 138,
@@ -312,7 +312,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/fruitjuice.jpg"
     }, {
-        id: 36,
+        id: 39,
         name: "pink grapefruit nectar (1l)",
         category: "juice",
         price: 229,
@@ -320,7 +320,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/nectar.jpg"
     }, {
-        id: 37,
+        id: 40,
         name: "carbonated lemon flavored water (500ml)",
         category: "water",
         price: 39,
@@ -328,7 +328,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/lemonwater.jpg"
     }, {
-        id: 38,
+        id: 41,
         name: "natural mineral water (1l)",
         category: "water",
         price: 65,
@@ -336,7 +336,7 @@ const grocery = [
         discount: 0,
         imageUrl: "/images/water.jpg"
     }, {
-        id: 39,
+        id: 42,
         name: "Chocolate and vanilla ice cream (500ml)",
         category: "ice cream",
         price: 699,
