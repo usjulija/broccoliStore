@@ -4,8 +4,6 @@ import Price from "./Price";
 class Product extends React.Component {
   render() {
     const {
-      category,
-      description,
       discount,
       id,
       imageUrl,
@@ -59,8 +57,7 @@ class Product extends React.Component {
           <button
             tabIndex={toggleTabindex}
             title="more info"
-            onClick={() => this.props.loadModal(this.props.details, false)}
-          >
+            onClick={() => {this.props.loadModal(this.props.details, false)}}>
             <svg
               fill="#6c3a32"
               xmlns="http://www.w3.org/2000/svg"

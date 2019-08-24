@@ -10,7 +10,8 @@
 :root {
   --brown: #6c3a32;
   --yellow: #ffcc4c;
-  --sky-blue: #e0f4ee;
+  --highlight-blue: #1dd3b0;
+  --highlight-dark: #04534b;
 }
 
 /* ===== Main styles ===== */
@@ -20,12 +21,17 @@ body {
   color: var(--brown);
 }
 
+button {
+  cursor: pointer;
+}
+
 .logo-font {
   font-family: "Amatic SC", cursive;
 }
 
 .fixed {
   position: fixed;
+  width: 100%;
 }
 
 /* ===== StoreMenu style ===== */
@@ -129,7 +135,6 @@ nav {
   flex-flow: row wrap;
   transition: 0.5s;
   -webkit-transition: 0.5s;
-  cursor: pointer;
 }
 
 .nav-buttons-container .button p {
@@ -176,7 +181,7 @@ nav {
 .nav-buttons-container .button:focus,
 .nav-mobile-menu .button:hover,
 .nav-mobile-menu .button:focus {
-  background-color: #1dd3b0 !important;
+  background-color: var(--highlight-blue) !important;
   border-bottom: 4px solid #20a78d !important;
   outline: 0;
 }
@@ -255,7 +260,7 @@ nav {
 }
 
 .categories-list:focus {
-  outline: 3px solid #1dd3b0;
+  outline: 3px solid var(--highlight-blue);
 }
 
 .categories-container button {
@@ -269,7 +274,6 @@ nav {
   font-weight: bold;
   color: var(--brown);
   transition: 0.5s;
-  cursor: pointer;
   margin: 3px;
 }
 
@@ -277,7 +281,7 @@ nav {
 .categories-container button:focus {
   outline: 0;
   color: #04534b;
-  background-color: #1dd3b0;
+  background-color: var(--highlight-blue);
 }
 
 .product-container {
@@ -362,7 +366,6 @@ nav {
   color: white;
   text-transform: uppercase;
   font-size: 12px;
-  cursor: pointer;
   transition: 0.5s;
   -webkit-transition: 0.5s;
 }
@@ -385,7 +388,7 @@ nav {
 
 .add-to-cart button:hover,
 .add-to-cart button:focus {
-  background-color: #1dd3b0;
+  background-color: var(--highlight-blue);
   outline: 0;
 }
 
@@ -421,7 +424,6 @@ nav {
   font-weight: bold;
   top: 0;
   transition: 0.5s;
-  cursor: pointer;
   text-transform: uppercase;
   margin-bottom: 15px;
   display: flex;
@@ -441,7 +443,7 @@ nav {
 
 .back-to-store:hover,
 .back-to-store:focus {
-  background-color: #1dd3b0;
+  background-color: var(--highlight-blue);
   outline: 0;
   color: #04534b;
 }
@@ -499,7 +501,7 @@ nav {
 .product-form input:focus,
 .product-form textarea:focus,
 .product-form select:focus {
-  outline: 3px solid #1dd3b0;
+  outline: 3px solid var(--highlight-blue);
 }
 
 .product-form button {
@@ -508,13 +510,12 @@ nav {
   color: var(--brown);
   font-weight: bold;
   text-transform: uppercase;
-  cursor: pointer;
   transition: 0.5s;
 }
 
 .product-form button:hover,
 .product-form button:focus {
-  background-color: #1dd3b0;
+  background-color: var(--highlight-blue);
   outline: 0;
   color: #04534b;
   border: 1px solid #04534b;

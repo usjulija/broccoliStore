@@ -5,23 +5,26 @@ import ProductsGallery from "./ProductsGallery";
 import Modal from "./Modal";
 import Login from "./Login";
 import Cart from "./Cart";
-import { formatPrice } from "../helper";
+import Search from "./Search";
 import PopUpMessage from "./PopUpMessage";
+import NotFound from "./NotFound";
+import { formatPrice } from "../helper";
 
 class BroccoliStore extends React.Component {
   state = {
     products: {}, //all products available
     order: {}, //items in the order
     filteredProducts: [], //visible products
+    searchedProducts: [], //products, shown in search mode
     totalItems: 0, //number of items in the cart
-    displayContent: "products", //what content displayed on page "products", "login" or "cart"
+    displayContent: "products", //what content displayed on page "products", "login" (for admin menu), "cart" or "search"
     mobileVisible: false, //state of mobile menu
     modalVisible: false, //state of modal
     detailsForModal: grocery[0], //data for product modal content
     modalAdminView: false, //modified content for admin view
     popUpVisible: false, //state of pop up message
     popUpState: "add", //pop up message for "remove", "add", "removeAdmin"
-    popUpName: "string"
+    popUpName: "string" //here should be the name for the selected product
   };
 
   componentDidMount() {
@@ -37,20 +40,28 @@ class BroccoliStore extends React.Component {
     }
 
     if (localStorageProducts) {
-      if (localStorageFiltered) {
+      if (localStorageFiltered && JSON.parse(localStorageFiltered).length > 0) {
+        console.log(JSON.parse(localStorageFiltered).length, "exists");
         this.setState({
           products: JSON.parse(localStorageProducts),
           filteredProducts: JSON.parse(localStorageFiltered)
         });
       } else {
-        this.setState({
-          products: JSON.parse(localStorageProducts)
-        }, () => {
-          this.filterProducts("all");
-        });
+        console.log("else");
+        this.setState(
+          {
+            products: JSON.parse(localStorageProducts)
+          },
+          () => {
+            this.filterProducts("all");
+          }
+        );
       }
     } else {
-      this.setState({ products: grocery }, () => {this.filterProducts("all")});
+      console.log("new");
+      this.setState({ products: grocery }, () => {
+        this.filterProducts("all");
+      });
     }
   }
 
@@ -227,6 +238,20 @@ class BroccoliStore extends React.Component {
     this.setState({ filteredProducts: newArray });
   };
 
+  //search products by given query
+  searchProducts = query => {
+    const filter = query.toUpperCase();
+    const products = { ...this.state.products };
+    let newArray = [];
+    Object.keys(products).forEach(key => {
+      const textValue = products[key].name.toUpperCase();
+      if (textValue.indexOf(filter) > -1) {
+        newArray.push(products[key]);
+      }
+    });
+    this.setState({ searchedProducts: newArray });
+  };
+
   render() {
     const fixedBackground =
       this.state.modalVisible || this.state.popUpVisible ? "fixed" : "";
@@ -269,8 +294,21 @@ class BroccoliStore extends React.Component {
           popUpVisible={this.state.popUpVisible}
         />
       );
-    }
-
+    } else if (this.state.displayContent === "search") {
+      content = (
+        <Search
+          loadModal={this.loadModal}
+          loadPage={this.loadPage}
+          modalVisible={this.state.modalVisible}
+          popUpVisible={this.state.popUpVisible}
+          searchProducts={this.searchProducts}
+          searchedProducts={this.state.searchedProducts}
+          priceCalculator={this.priceCalculator}
+          addToCart={this.addToCart}
+        />
+      );
+    } 
+    
     return (
       <React.Fragment>
         <Modal

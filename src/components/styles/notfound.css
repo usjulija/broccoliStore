@@ -1,0 +1,28 @@
+.not-found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.not-found > * {
+    padding: 15px;
+}
+
+.not-found button {
+    background-color: #61c5a8;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #54596e;
+    transition: 0.5s;
+}
+
+.not-found button:hover,
+.not-found button:focus {
+    background-color: #1dd3b0;
+    outline: 0;
+    color: #04534b;
+}

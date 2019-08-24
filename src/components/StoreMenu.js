@@ -73,6 +73,9 @@ class StoreMenu extends React.Component {
             <span className="cart-number">{this.props.totalItems}</span>
           </button>
           <button
+            onClick={() => {
+              this.props.loadPage("search");
+            }}
             className="button"
             id="color-three"
             title="search"
