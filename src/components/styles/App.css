@@ -800,6 +800,29 @@ nav {
   font-weight: bold;
 }
 
+.check-out-container > * {
+  padding: 15px;
+}
+
+.check-out-container button {
+  background-color: #e9af00;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  padding: 10px 15px;
+}
+
+.check-out-container button:hover,
+.check-out-container button:focus {
+  background-color: #1dd3b0;
+  outline: 0;
+  color: #04534b;
+}
+
+
 /* ===== Responsive for  Cart ====== */
 @media screen and (min-width: 680px) {
   .selected-product {

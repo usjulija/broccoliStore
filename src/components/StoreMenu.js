@@ -3,7 +3,7 @@ import logo from "./images/logo-small.png";
 
 class StoreMenu extends React.Component {
   render() {
-    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
+    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible || this.props.checkoutVisible ? "-1" : "0";
     let visibility = this.props.mobileVisible ? "show" : "";
     let content;
     if (this.props.mobileVisible) {

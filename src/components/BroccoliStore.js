@@ -7,7 +7,7 @@ import Login from "./Login";
 import Cart from "./Cart";
 import Search from "./Search";
 import PopUpMessage from "./PopUpMessage";
-import NotFound from "./NotFound";
+import Checkout from "./Checkout";
 import { formatPrice } from "../helper";
 
 class BroccoliStore extends React.Component {
@@ -17,14 +17,16 @@ class BroccoliStore extends React.Component {
     filteredProducts: [], //visible products
     searchedProducts: [], //products, shown in search mode
     totalItems: 0, //number of items in the cart
-    displayContent: "products", //what content displayed on page "products", "login" (for admin menu), "cart" or "search"
+    totalPrice: 0, //total price
+    displayContent: "cart", //what content displayed on page "products", "login" (for admin menu), "cart" or "search"
     mobileVisible: false, //state of mobile menu
     modalVisible: false, //state of modal
     detailsForModal: grocery[0], //data for product modal content
     modalAdminView: false, //modified content for admin view
     popUpVisible: false, //state of pop up message
     popUpState: "add", //pop up message for "remove", "add", "removeAdmin"
-    popUpName: "string" //here should be the name for the selected product
+    popUpName: "string", //here should be the name for the selected product
+    checkoutVisible: false //checkout message
   };
 
   componentDidMount() {
@@ -41,24 +43,19 @@ class BroccoliStore extends React.Component {
 
     if (localStorageProducts) {
       if (localStorageFiltered && JSON.parse(localStorageFiltered).length > 0) {
-        console.log(JSON.parse(localStorageFiltered).length, "exists");
         this.setState({
           products: JSON.parse(localStorageProducts),
           filteredProducts: JSON.parse(localStorageFiltered)
         });
       } else {
-        console.log("else");
         this.setState(
-          {
-            products: JSON.parse(localStorageProducts)
-          },
+          { products: JSON.parse(localStorageProducts) },
           () => {
             this.filterProducts("all");
           }
         );
       }
     } else {
-      console.log("new");
       this.setState({ products: grocery }, () => {
         this.filterProducts("all");
       });
@@ -180,6 +177,15 @@ class BroccoliStore extends React.Component {
     this.totalItemsCalculator(order);
   };
 
+  //checkout load and close
+  loadCheckout = (price) => {
+    this.setState({checkoutVisible: true, totalPrice: price});
+  }
+
+  closeCheckout = () => {
+    this.setState({checkoutVisible: false});
+  }
+
   //load & close pop up
   loadPopUp = (name, state) => {
     if (state === "add") {
@@ -267,32 +273,34 @@ class BroccoliStore extends React.Component {
           priceCalculator={this.priceCalculator}
           addToCart={this.addToCart}
           filterProducts={this.filterProducts}
-        />
-      );
-    } else if (this.state.displayContent === "login") {
-      content = (
-        <Login
-          products={this.state.products}
-          addProductToStore={this.addProductToStore}
-          loadPage={this.loadPage}
-          loadModal={this.loadModal}
-          modalVisible={this.state.modalVisible}
-          popUpVisible={this.state.popUpVisible}
-          updateProduct={this.updateProduct}
-          removeProduct={this.removeProduct}
-        />
-      );
-    } else if (this.state.displayContent === "cart") {
-      content = (
-        <Cart
-          loadPage={this.loadPage}
-          order={this.state.order}
-          products={this.state.products}
-          removeFromCart={this.removeFromCart}
-          addToCart={this.addOneItem}
-          removeOneItem={this.removeOneItem}
-          popUpVisible={this.state.popUpVisible}
-        />
+          />
+          );
+        } else if (this.state.displayContent === "login") {
+          content = (
+            <Login
+            products={this.state.products}
+            addProductToStore={this.addProductToStore}
+            loadPage={this.loadPage}
+            loadModal={this.loadModal}
+            modalVisible={this.state.modalVisible}
+            popUpVisible={this.state.popUpVisible}
+            updateProduct={this.updateProduct}
+            removeProduct={this.removeProduct}
+            />
+            );
+          } else if (this.state.displayContent === "cart") {
+            content = (
+              <Cart
+              loadPage={this.loadPage}
+              order={this.state.order}
+              products={this.state.products}
+              removeFromCart={this.removeFromCart}
+              addToCart={this.addOneItem}
+              removeOneItem={this.removeOneItem}
+              popUpVisible={this.state.popUpVisible}
+              loadCheckout={this.loadCheckout}
+              checkoutVisible={this.state.checkoutVisible}
+              />
       );
     } else if (this.state.displayContent === "search") {
       content = (
@@ -325,12 +333,18 @@ class BroccoliStore extends React.Component {
           popUpState={this.state.popUpState}
           closePopUp={this.closePopUp}
         />
+        <Checkout
+          checkoutVisible={this.state.checkoutVisible}
+          closeCheckout={this.closeCheckout}
+          totalItems={this.state.totalItems}
+          totalPrice={this.state.totalPrice}/>
         <div className={fixedBackground}>
           <StoreMenu
             toggleNavMenu={this.toggleNavMenu}
             mobileVisible={this.state.mobileVisible}
             modalVisible={this.state.modalVisible}
             popUpVisible={this.state.popUpVisible}
+            checkoutVisible={this.state.checkoutVisible}
             loadPage={this.loadPage}
             totalItems={this.state.totalItems}
           />

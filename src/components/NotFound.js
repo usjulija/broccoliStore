@@ -1,6 +1,5 @@
 import React from 'react';
 import "./styles/notfound.css";
-import BackToStore from './BackToStore';
 
 class NotFound extends React.Component {
   loadStore = () => {

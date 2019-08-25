@@ -4,7 +4,7 @@ import { formatPrice } from "../helper";
 
 class Cart extends React.Component {
   renderOrder = key => {
-    const toggleTabindex = this.props.popUpVisible ? "-1" : "0";
+    const toggleTabindex = this.props.popUpVisible || this.props.checkoutVisible ? "-1" : "0";
     const product = this.props.products[key];
     if (!product) return null;
     if (product) {
@@ -78,10 +78,14 @@ class Cart extends React.Component {
         <BackToStore
           loadPage={this.props.loadPage}
           popUpVisible={this.props.popUpVisible}
+          checkoutVisible={this.props.checkoutVisible}
         />
         <h1>Your shopping cart</h1>
         <ul className="products-in-cart">{orderIds.map(this.renderOrder)}</ul>
-        <h2 className="total">Total: {formatPrice(total)}</h2>
+        <div className="check-out-container flex-container">
+          <button onClick={()=>{this.props.loadCheckout(total)}}>Checkout</button>
+          <h2 className="total">Total: {formatPrice(total)}</h2>
+        </div>
       </section>
     );
   }

@@ -51,6 +51,10 @@
   max-width: 100%;
 }
 
+.modal-content p {
+  padding: 10px;
+}
+
 .modal-content h5 {
   font-size: 22px;
   text-align: center;

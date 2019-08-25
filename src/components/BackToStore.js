@@ -2,7 +2,8 @@ import React from "react";
 
 class BackToStore extends React.Component {
   render() {
-    const toggleTabindex =  this.props.popUpVisible || this.props.modalVisible ? "-1" : "0";
+    const toggleTabindex =
+      this.props.popUpVisible || this.props.modalVisible || this.props.checkoutVisible ? "-1" : "0";
     return (
       <button
         tabIndex={toggleTabindex}
@@ -11,7 +12,8 @@ class BackToStore extends React.Component {
           this.props.loadPage("products");
         }}
       >
-        <svg fill="#fff"
+        <svg
+          fill="#fff"
           version="1"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 492 492"
