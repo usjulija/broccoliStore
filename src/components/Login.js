@@ -6,7 +6,7 @@ import EditProduct from './EditProduct';
 class Login extends React.Component {
   render() {
     return (
-      <section className="login">
+      <section className="login flex-container">
         <BackToStore 
           loadPage={this.props.loadPage} 
           modalVisible={this.props.modalVisible} 
@@ -14,7 +14,7 @@ class Login extends React.Component {
         <h1>Administrator view</h1>
         <h3>Here you can manage your store</h3>
         <h4>Add new product:</h4>
-        <div className="product-form-container">
+        <div className="product-form-container flex-container">
           <AddProduct 
             products={this.props.products}
             addProductToStore={this.props.addProductToStore}

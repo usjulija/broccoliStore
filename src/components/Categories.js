@@ -14,7 +14,7 @@ class Categories extends React.Component {
     categoryName.sort();
     return (
       <React.Fragment>
-        <div className="categories-container">
+        <div className="categories-container flex-container">
           <button key="all" tabIndex={toggleTabindex} onClick={() => {this.filterFunction("all")}}>All products</button>
           {categoryName.map(category => (
             <button key={category} tabIndex={toggleTabindex} onClick={() => {this.filterFunction(category)}}>

@@ -9,7 +9,7 @@ class Cart extends React.Component {
     if (!product) return null;
     if (product) {
       return (
-        <li className="selected-product" key={key}>
+        <li className="selected-product flex-container" key={key}>
           <button
             onClick={() => {
               this.props.removeFromCart(key, product.name);
@@ -29,7 +29,7 @@ class Cart extends React.Component {
           </button>
           <img src={product.imageUrl} alt={product.name} />
           <h4>{product.name}</h4>
-          <div className="price-for-cart">
+          <div className="price-for-cart flex-container">
             <p>{formatPrice(product.price)}</p>
             <p>
               <span
@@ -74,7 +74,7 @@ class Cart extends React.Component {
       }
     }, 0);
     return (
-      <section className="cart">
+      <section className="cart flex-container">
         <BackToStore
           loadPage={this.props.loadPage}
           popUpVisible={this.props.popUpVisible}

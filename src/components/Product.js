@@ -14,8 +14,8 @@ class Product extends React.Component {
     const discountVisibility = discount === 0 ? "hide" : "discount";
     const toggleTabindex = this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
     return (
-      <div className="product-container">
-        <div className="price-image">
+      <div className="product-container flex-container">
+        <div className="price-image flex-container">
           <h4 className={discountVisibility}>{discount}%</h4>
           <img src={imageUrl} alt={name} />
           <Price

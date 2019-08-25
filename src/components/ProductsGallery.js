@@ -5,14 +5,14 @@ import Categories from './Categories';
 class ProductsGallery extends React.Component {
   render() {
     return (
-      <div className="products-gallery">
+      <div className="products-gallery flex-container">
         <Categories 
           products={this.props.products}
           modalVisible={this.props.modalVisible}
           popUpVisible={this.props.popUpVisible}
           filterProducts={this.props.filterProducts}
          />
-         <div className="products-container">
+         <div className="products-container flex-container">
           {this.props.filteredProducts.map(product => (
               <Product
                   key={product.id}

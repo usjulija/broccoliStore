@@ -6,7 +6,7 @@ class BackToStore extends React.Component {
     return (
       <button
         tabIndex={toggleTabindex}
-        className="back-to-store"
+        className="back-to-store flex-container"
         onClick={() => {
           this.props.loadPage("products");
         }}
