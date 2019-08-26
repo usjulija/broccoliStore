@@ -645,14 +645,14 @@ nav {
 }
 
 /* ===== Manager view ====== */
-.login {
+.adminview {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
 }
 
-.login h4 {
+.adminview h4 {
   margin-top: 15px;
   padding: 10px;
   text-align: center;

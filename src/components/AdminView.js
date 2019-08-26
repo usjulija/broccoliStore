@@ -3,10 +3,10 @@ import BackToStore from './BackToStore';
 import AddProduct from './AddProduct';
 import EditProduct from './EditProduct';
 
-class Login extends React.Component {
+class AdminView extends React.Component {
   render() {
     return (
-      <section className="login flex-container">
+      <section className="adminview flex-container">
         <BackToStore 
           loadPage={this.props.loadPage} 
           modalVisible={this.props.modalVisible} 
@@ -40,4 +40,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default AdminView;

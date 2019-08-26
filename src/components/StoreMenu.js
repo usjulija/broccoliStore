@@ -98,7 +98,7 @@ class StoreMenu extends React.Component {
           </button>
           <button
             onClick={() => {
-              this.props.loadPage("login");
+              this.props.loadPage("adminview");
             }}
             className="flex-container"
             id="color-four"

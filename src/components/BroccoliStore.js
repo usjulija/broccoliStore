@@ -3,7 +3,7 @@ import StoreMenu from "./StoreMenu";
 import grocery from "../foodData";
 import ProductsGallery from "./ProductsGallery";
 import Modal from "./Modal";
-import Login from "./Login";
+import AdminView from "./AdminView";
 import Cart from "./Cart";
 import Search from "./Search";
 import PopUpMessage from "./PopUpMessage";
@@ -18,7 +18,7 @@ class BroccoliStore extends React.Component {
     searchedProducts: [], //products, shown in search mode
     totalItems: 0, //number of items in the cart
     totalPrice: 0, //total price
-    displayContent: "cart", //what content displayed on page "products", "login" (for admin menu), "cart" or "search"
+    displayContent: "products", //what content displayed on page "products", "adminview" (for admin menu), "cart" or "search"
     mobileVisible: false, //state of mobile menu
     modalVisible: false, //state of modal
     detailsForModal: grocery[0], //data for product modal content
@@ -275,9 +275,9 @@ class BroccoliStore extends React.Component {
           filterProducts={this.filterProducts}
           />
           );
-        } else if (this.state.displayContent === "login") {
+        } else if (this.state.displayContent === "adminview") {
           content = (
-            <Login
+            <AdminView
             products={this.state.products}
             addProductToStore={this.addProductToStore}
             loadPage={this.loadPage}
