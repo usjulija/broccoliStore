@@ -1,6 +1,17 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
+  static propTypes = {
+    filterProducts: PropTypes.func,
+    modalVisible: PropTypes.bool,
+    popUpVisible: PropTypes.bool,
+    products: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+    ])
+  };
+
   filterFunction = category => {
     this.props.filterProducts(category);
   };

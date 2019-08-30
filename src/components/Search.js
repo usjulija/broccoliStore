@@ -1,9 +1,21 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import BackToStore from "./BackToStore";
 import Product from "./Product";
 import "./styles/search.css";
 
 class Search extends React.Component {
+  static propTypes = {
+    searchProducts: PropTypes.func,
+    loadPage: PropTypes.func,
+    popUpVisible: PropTypes.bool,
+    modalVisible: PropTypes.bool,
+    searchedProducts: PropTypes.array,
+    loadModal: PropTypes.func,
+    addToCart: PropTypes.func,
+    priceCalculator: PropTypes.func
+  };
+
   inputRef = React.createRef();
   handleSearch = e => {
     e.preventDefault();

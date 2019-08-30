@@ -169,15 +169,27 @@
 }
 
 @keyframes change-color {
-  0% { fill: #e3c5a6; }
-  50% { fill: #a6c087; }
-  100% { fill: #e3c5a6; }
+  0% {
+    fill: #e3c5a6;
+  }
+  50% {
+    fill: #a6c087;
+  }
+  100% {
+    fill: #e3c5a6;
+  }
 }
 
 @-webkit-keyframes change-color {
-  0% { fill: #e3c5a6; }
-  50% { fill: #a6c087; }
-  100% { fill: #e3c5a6; }
+  0% {
+    fill: #e3c5a6;
+  }
+  50% {
+    fill: #a6c087;
+  }
+  100% {
+    fill: #e3c5a6;
+  }
 }
 
 /* rotation */

@@ -1,15 +1,44 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import logo from "./images/logo-small.png";
 
 class StoreMenu extends React.Component {
+  static propTypes = {
+    modalVisible: PropTypes.bool,
+    popUpVisible: PropTypes.bool,
+    checkoutVisible: PropTypes.bool,
+    mobileVisible: PropTypes.bool,
+    toggleNavMenu: PropTypes.func,
+    loadPage: PropTypes.func,
+    totalItems: PropTypes.number
+  };
   render() {
-    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible || this.props.checkoutVisible ? "-1" : "0";
+    const toggleTabindex =
+      this.props.modalVisible ||
+      this.props.popUpVisible ||
+      this.props.checkoutVisible
+        ? "-1"
+        : "0";
     let visibility = this.props.mobileVisible ? "show" : "";
     let content;
     if (this.props.mobileVisible) {
-      content = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.971 47.971"><path fill="#6c3a32" d="M28.228 23.986L47.092 5.122a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23.986 19.744 5.121.88a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242l18.865 18.864L.879 42.85a2.998 2.998 0 1 0 4.242 4.241l18.865-18.864L42.85 47.091c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242L28.228 23.986z"/></svg>;
+      content = (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.971 47.971">
+          <path
+            fill="#6c3a32"
+            d="M28.228 23.986L47.092 5.122a2.998 2.998 0 0 0 0-4.242 2.998 2.998 0 0 0-4.242 0L23.986 19.744 5.121.88a2.998 2.998 0 0 0-4.242 0 2.998 2.998 0 0 0 0 4.242l18.865 18.864L.879 42.85a2.998 2.998 0 1 0 4.242 4.241l18.865-18.864L42.85 47.091c.586.586 1.354.879 2.121.879s1.535-.293 2.121-.879a2.998 2.998 0 0 0 0-4.242L28.228 23.986z"
+          />
+        </svg>
+      );
     } else {
-      content = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#fff" d="M491.3 235.3H20.7a20.7 20.7 0 1 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4zM491.3 78.4H20.7a20.7 20.7 0 0 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4zM491.3 392.2H20.7a20.7 20.7 0 1 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4z"/></svg>;
+      content = (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            fill="#fff"
+            d="M491.3 235.3H20.7a20.7 20.7 0 1 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4zM491.3 78.4H20.7a20.7 20.7 0 0 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4zM491.3 392.2H20.7a20.7 20.7 0 1 0 0 41.4h470.6a20.7 20.7 0 1 0 0-41.4z"
+          />
+        </svg>
+      );
     }
     return (
       <nav className="flex-container">
@@ -28,9 +57,14 @@ class StoreMenu extends React.Component {
             title="menu"
             onClick={this.props.toggleNavMenu}
             tabIndex={toggleTabindex}
-          >{content}</button>
+          >
+            {content}
+          </button>
         </section>
-        <section className="nav-buttons-container flex-container" id={visibility}>
+        <section
+          className="nav-buttons-container flex-container"
+          id={visibility}
+        >
           <button
             onClick={() => {
               this.props.loadPage("products");
@@ -70,7 +104,9 @@ class StoreMenu extends React.Component {
                 d="M273.1 325a8 8 0 0 0-8 8v94c0 5-4 9.1-9.1 9.1s-9-4-9-9V298.7c0-5 4-9.1 9-9.1s9 4 9 9a8 8 0 0 0 16.1 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM341.5 325a8 8 0 0 0-8 8v94a9.1 9.1 0 0 1-18.2 0V298.8a9.1 9.1 0 0 1 18.2 0 8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM410 325a8 8 0 0 0-8.1 8v94a9.1 9.1 0 0 1-18.2 0V298.8a9.1 9.1 0 0 1 18.2 0 8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM136.3 325a8 8 0 0 0-8 8v94a9.1 9.1 0 0 1-18.2 0V298.8c0-5 4-9.1 9-9.1s9.2 4 9.2 9a8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8zM204.7 325a8 8 0 0 0-8 8v94a9.1 9.1 0 0 1-18.2 0V298.8c0-5 4-9.1 9-9.1s9.2 4 9.2 9a8 8 0 0 0 16 0 25.1 25.1 0 0 0-50.2 0V427a25.1 25.1 0 0 0 50.2 0v-94a8 8 0 0 0-8-8z"
               />
             </svg>
-            <span className="cart-number flex-container">{this.props.totalItems}</span>
+            <span className="cart-number flex-container">
+              {this.props.totalItems}
+            </span>
           </button>
           <button
             onClick={() => {
@@ -106,11 +142,26 @@ class StoreMenu extends React.Component {
             tabIndex={toggleTabindex}
           >
             <svg viewBox="-28 0 411 411" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#fff" d="M198 232a7 7 0 0 1-7-7v-43a7 7 0 1 1 14 0v29l47-39a7 7 0 1 1 9 11l-59 48-4 1zm0 0"/>
-              <path fill="#fff" d="M199 411a497 497 0 0 1-109-19l-1-5c1-1 27-67 20-106-2-12-6-28-13-47a7 7 0 0 1 12-4c8 19 13 36 15 49 6 34-11 86-18 105 82 20 126 15 134 4-2-14-13-84-7-116 3-12 9-24 18-36a7 7 0 1 1 11 9c-8 10-13 20-15 29-7 33 6 113 7 114l-1 4c-6 14-27 19-53 19zm0 0"/>
-              <path fill="#fff" d="M148 307c-3 0-5 8-4 14 7 30 19 50 34 50 14 0 27-20 33-49 2-7 0-14-3-14l-11 2c-13 3-26 3-38 0zm0 0M294 266a55 55 0 0 1-31-100 7 7 0 0 1 8 12 41 41 0 1 0 34-6 7 7 0 1 1 4-13c23 7 39 29 39 53 0 30-24 54-54 54zm0 0M50 143c-2 0-4 0-5-2a68 68 0 0 1 83-106c11-21 40-35 73-35 44 0 79 25 79 55v6a7 7 0 1 1-14-3v-3c0-23-29-41-65-41-30 0-58 14-63 33a7 7 0 0 1-11 4c-9-7-20-10-31-10a55 55 0 0 0-41 91 7 7 0 0 1-5 11zm0 0"/>
-              <path fill="#fff" d="M164 191c-52 0-95-30-95-68s43-68 95-68a7 7 0 0 1 0 13c-45 0-81 25-81 55s36 54 81 54c25 0 48-7 63-20 3-2 5-3 8-1 11 5 24 8 38 8 38 0 68-22 68-48s-30-48-68-48c-18 0-35 5-48 14a7 7 0 0 1-7-11c15-11 34-16 55-16 45 0 82 27 82 61s-37 61-82 61c-14 0-28-2-40-7-18 13-43 21-69 21zm0 0"/>
-              <path fill="#fff" d="M62 253a62 62 0 1 1 16-121 7 7 0 0 1-4 13 48 48 0 0 0-60 46 48 48 0 1 0 93-14 7 7 0 0 1 13-4 61 61 0 0 1-58 80zm0 0M164 270a10 10 0 1 1-21 0 10 10 0 0 1 21 0zm0 0M212 270a10 10 0 1 1-21 0 10 10 0 0 1 21 0zm0 0"/>
+              <path
+                fill="#fff"
+                d="M198 232a7 7 0 0 1-7-7v-43a7 7 0 1 1 14 0v29l47-39a7 7 0 1 1 9 11l-59 48-4 1zm0 0"
+              />
+              <path
+                fill="#fff"
+                d="M199 411a497 497 0 0 1-109-19l-1-5c1-1 27-67 20-106-2-12-6-28-13-47a7 7 0 0 1 12-4c8 19 13 36 15 49 6 34-11 86-18 105 82 20 126 15 134 4-2-14-13-84-7-116 3-12 9-24 18-36a7 7 0 1 1 11 9c-8 10-13 20-15 29-7 33 6 113 7 114l-1 4c-6 14-27 19-53 19zm0 0"
+              />
+              <path
+                fill="#fff"
+                d="M148 307c-3 0-5 8-4 14 7 30 19 50 34 50 14 0 27-20 33-49 2-7 0-14-3-14l-11 2c-13 3-26 3-38 0zm0 0M294 266a55 55 0 0 1-31-100 7 7 0 0 1 8 12 41 41 0 1 0 34-6 7 7 0 1 1 4-13c23 7 39 29 39 53 0 30-24 54-54 54zm0 0M50 143c-2 0-4 0-5-2a68 68 0 0 1 83-106c11-21 40-35 73-35 44 0 79 25 79 55v6a7 7 0 1 1-14-3v-3c0-23-29-41-65-41-30 0-58 14-63 33a7 7 0 0 1-11 4c-9-7-20-10-31-10a55 55 0 0 0-41 91 7 7 0 0 1-5 11zm0 0"
+              />
+              <path
+                fill="#fff"
+                d="M164 191c-52 0-95-30-95-68s43-68 95-68a7 7 0 0 1 0 13c-45 0-81 25-81 55s36 54 81 54c25 0 48-7 63-20 3-2 5-3 8-1 11 5 24 8 38 8 38 0 68-22 68-48s-30-48-68-48c-18 0-35 5-48 14a7 7 0 0 1-7-11c15-11 34-16 55-16 45 0 82 27 82 61s-37 61-82 61c-14 0-28-2-40-7-18 13-43 21-69 21zm0 0"
+              />
+              <path
+                fill="#fff"
+                d="M62 253a62 62 0 1 1 16-121 7 7 0 0 1-4 13 48 48 0 0 0-60 46 48 48 0 1 0 93-14 7 7 0 0 1 13-4 61 61 0 0 1-58 80zm0 0M164 270a10 10 0 1 1-21 0 10 10 0 0 1 21 0zm0 0M212 270a10 10 0 1 1-21 0 10 10 0 0 1 21 0zm0 0"
+              />
             </svg>
           </button>
         </section>

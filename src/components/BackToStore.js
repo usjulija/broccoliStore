@@ -1,9 +1,20 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class BackToStore extends React.Component {
+  static propTypes = {
+    popUpVisible: PropTypes.bool,
+    modalVisible: PropTypes.bool,
+    checkoutVisible: PropTypes.bool,
+    loadPage: PropTypes.func
+  };
   render() {
     const toggleTabindex =
-      this.props.popUpVisible || this.props.modalVisible || this.props.checkoutVisible ? "-1" : "0";
+      this.props.popUpVisible ||
+      this.props.modalVisible ||
+      this.props.checkoutVisible
+        ? "-1"
+        : "0";
     return (
       <button
         tabIndex={toggleTabindex}

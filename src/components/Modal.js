@@ -1,8 +1,25 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Price from "./Price";
 import "./styles/modal.css";
 
 class Modal extends React.Component {
+  static propTypes = {
+    details: PropTypes.shape({
+      category: PropTypes.string,
+      description: PropTypes.string,
+      discount: PropTypes.number,
+      imageUrl: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number
+    }),
+    modalVisible: PropTypes.bool,
+    modalAdminView: PropTypes.bool,
+    loadPage: PropTypes.func,
+    closeModal: PropTypes.func,
+    priceCalculator: PropTypes.func
+  };
+  
   render() {
     const {
       category,

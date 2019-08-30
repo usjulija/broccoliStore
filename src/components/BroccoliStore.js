@@ -281,40 +281,50 @@ class BroccoliStore extends React.Component {
     };
     const messages = this.state.messages.slice();
     messages.push(newMessage);
-    const messageArray = message.toLowerCase().replace(/[^a-zA-Z ]/g, "").split(" ");
+    const messageArray = message
+      .toLowerCase()
+      .replace(/[^a-zA-Z ]/g, "")
+      .split(" ");
     console.log(messageArray);
-    this.setState({messages}, () => {
+    this.setState({ messages }, () => {
       this.messageTemplate(messageArray);
     });
-  }
+  };
 
-  messageTemplate = (messageArray) => {
-    if(messageArray.includes("hello") || messageArray.includes("hi")) {
+  messageTemplate = messageArray => {
+    if (messageArray.includes("hello") || messageArray.includes("hi")) {
       const newMessage = {
         senderId: "admin",
         text: "Hey! Nice to meet you in our store! How can I help you?"
       };
       const messages = this.state.messages.slice();
       messages.push(newMessage);
-      this.setState({messages});
-    } else if (messageArray.includes("discount") || messageArray.includes("discounts") || messageArray.includes("pay") || messageArray.includes("payment") || messageArray.includes("delivery")) {
+      this.setState({ messages });
+    } else if (
+      messageArray.includes("discount") ||
+      messageArray.includes("discounts") ||
+      messageArray.includes("pay") ||
+      messageArray.includes("payment") ||
+      messageArray.includes("delivery")
+    ) {
       const newMessage = {
         senderId: "admin",
         text: "It is just a store concept! You cannot buy anything real here!"
       };
       const messages = this.state.messages.slice();
       messages.push(newMessage);
-      this.setState({messages});
+      this.setState({ messages });
     } else if (messageArray.includes("author")) {
       const newMessage = {
         senderId: "admin",
-        text: "This application author is Julia Us. To see more her projects visit: https://github.com/usjulija"
+        text:
+          "This application author is Julia Us. To see more her projects visit: https://github.com/usjulija"
       };
       const messages = this.state.messages.slice();
       messages.push(newMessage);
-      this.setState({messages});
+      this.setState({ messages });
     }
-  }
+  };
 
   render() {
     const fixedBackground =
@@ -341,7 +351,8 @@ class BroccoliStore extends React.Component {
           aria-label="start chat with admin"
           className={chatButtonClass}
           tabIndex={toggleTabindex}
-          onClick={this.toggleSupport}>
+          onClick={this.toggleSupport}
+        >
           <p>{chatButtonMessage}</p>
           <div className="dots-container flex-container">
             <div className="dot-one"></div>
@@ -350,15 +361,15 @@ class BroccoliStore extends React.Component {
           </div>
           <div className="bottom-arrow"></div>
         </button>
-        <Support 
-          supportVisible={this.state.supportVisible} 
+        <Support
+          supportVisible={this.state.supportVisible}
           messages={this.state.messages}
           sendMessage={this.sendMessage}
           user="client"
           modalVisible={this.state.modalVisible}
           popUpVisible={this.state.popUpVisible}
           checkoutVisible={this.state.checkoutVisible}
-          />
+        />
       </React.Fragment>
     );
     let content;

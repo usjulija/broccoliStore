@@ -1,10 +1,31 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class EditProduct extends React.Component {
+  static propTypes = {
+    details: PropTypes.shape({
+      category: PropTypes.string,
+      description: PropTypes.string,
+      discount: PropTypes.number,
+      imageUrl: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      id: PropTypes.number
+    }),
+    updateProduct: PropTypes.func,
+    modalVisible: PropTypes.bool,
+    popUpVisible: PropTypes.bool,
+    products: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+    ]),
+    removeProduct: PropTypes.func
+  };
+
   handleChange = e => {
     const updatedProduct = {
-        ...this.props.details,
-        [e.currentTarget.name]: e.currentTarget.value
+      ...this.props.details,
+      [e.currentTarget.name]: e.currentTarget.value
     };
     this.props.updateProduct(this.props.details.id, updatedProduct);
   };
@@ -18,7 +39,8 @@ class EditProduct extends React.Component {
       name,
       price
     } = this.props.details;
-    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
+    const toggleTabindex =
+      this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
     let names = [];
     Object.keys(this.props.products).map(key => {
       return names.push(this.props.products[key].category);
@@ -89,7 +111,14 @@ class EditProduct extends React.Component {
           placeholder="Image URL"
           required
         />
-        <button tabIndex={toggleTabindex} onClick={()=>{this.props.removeProduct(id, name)}}>- Remove Product</button>
+        <button
+          tabIndex={toggleTabindex}
+          onClick={() => {
+            this.props.removeProduct(id, name);
+          }}
+        >
+          - Remove Product
+        </button>
       </div>
     );
   }

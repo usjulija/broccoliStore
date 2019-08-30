@@ -1,18 +1,29 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Price from "./Price";
 
 class Product extends React.Component {
+  static propTypes = {
+    details: PropTypes.shape({
+      id: PropTypes.number,
+      discount: PropTypes.number,
+      imageUrl: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number
+    }),
+    modalVisible: PropTypes.bool,
+    popUpVisible: PropTypes.bool,
+    priceCalculator: PropTypes.func,
+    loadModal: PropTypes.func,
+    addToCart: PropTypes.func
+  };
+
   render() {
-    const {
-      discount,
-      id,
-      imageUrl,
-      name,
-      price
-    } = this.props.details;
+    const { discount, id, imageUrl, name, price } = this.props.details;
     const specialOffVisibility = discount === 0 ? "hide" : "special-offer";
     const discountVisibility = discount === 0 ? "hide" : "discount";
-    const toggleTabindex = this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
+    const toggleTabindex =
+      this.props.modalVisible || this.props.popUpVisible ? "-1" : "0";
     return (
       <div className="product-container flex-container">
         <div className="price-image flex-container">
@@ -57,7 +68,10 @@ class Product extends React.Component {
           <button
             tabIndex={toggleTabindex}
             title="more info"
-            onClick={() => {this.props.loadModal(this.props.details, false)}}>
+            onClick={() => {
+              this.props.loadModal(this.props.details, false);
+            }}
+          >
             <svg
               fill="#6c3a32"
               xmlns="http://www.w3.org/2000/svg"
@@ -67,9 +81,13 @@ class Product extends React.Component {
               <path d="M462.131 298.131a10.193 10.193 0 0 0-12.4 7.367c-5.689 22.34-15.158 43.377-28.142 62.528-3.161 4.663-1.943 11.004 2.719 14.166a10.156 10.156 0 0 0 5.715 1.758c3.268 0 6.48-1.568 8.451-4.478 14.313-21.11 24.751-44.306 31.024-68.94 1.39-5.459-1.907-11.012-7.367-12.401zM466.104 245.801c-5.632 0-10.199 4.567-10.199 10.199 0 2.915-.063 5.855-.188 8.739-.244 5.628 4.121 10.387 9.749 10.63.15.007.299.01.448.01 5.43 0 9.945-4.282 10.182-9.759.138-3.176.207-6.412.207-9.62 0-5.632-4.567-10.199-10.199-10.199zM256 172.877c-19.683 0-35.697 16.014-35.697 35.697V386.04c0 19.683 16.014 35.697 35.697 35.697 19.683 0 35.697-16.014 35.697-35.697V208.574c0-19.684-16.014-35.697-35.697-35.697zm15.299 213.163c0 8.436-6.863 15.299-15.299 15.299s-15.299-6.863-15.299-15.299V208.574c0-8.436 6.863-15.299 15.299-15.299s15.299 6.863 15.299 15.299V386.04zM281.235 100.707c-6.652-6.638-15.851-10.444-25.235-10.444-9.385 0-18.584 3.806-25.246 10.453-6.642 6.644-10.451 15.844-10.451 25.244 0 9.384 3.806 18.583 10.46 25.251 6.652 6.639 15.851 10.446 25.237 10.446 9.385 0 18.584-3.807 25.251-10.461 6.639-6.652 10.446-15.851 10.446-25.236 0-9.4-3.809-18.601-10.462-25.253zm-14.408 36.066c-2.858 2.85-6.804 4.486-10.827 4.486a15.432 15.432 0 0 1-10.813-4.47c-2.85-2.858-4.486-6.805-4.486-10.828 0-4.032 1.633-7.976 4.469-10.813 2.858-2.85 6.805-4.486 10.83-4.486 4.024 0 7.971 1.636 10.819 4.478a15.405 15.405 0 0 1 4.479 10.82 15.424 15.424 0 0 1-4.471 10.813z" />
             </svg>
           </button>
-          <button tabIndex={toggleTabindex} 
+          <button
+            tabIndex={toggleTabindex}
             title="add to cart"
-            onClick={() => {this.props.addToCart(id, name)}}>
+            onClick={() => {
+              this.props.addToCart(id, name);
+            }}
+          >
             <svg
               fill="#6c3a32"
               viewBox="0 0 496 496"

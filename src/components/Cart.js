@@ -1,10 +1,27 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import BackToStore from "./BackToStore";
 import { formatPrice } from "../helper";
 
 class Cart extends React.Component {
+  static propTypes = {
+    popUpVisible: PropTypes.bool,
+    checkoutVisible: PropTypes.bool,
+    products: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+    ]),
+    removeFromCart: PropTypes.func,
+    removeOneItem: PropTypes.func,
+    order: PropTypes.object,
+    addToCart: PropTypes.func,
+    loadPage: PropTypes.func,
+    loadCheckout: PropTypes.func
+  };
+
   renderOrder = key => {
-    const toggleTabindex = this.props.popUpVisible || this.props.checkoutVisible ? "-1" : "0";
+    const toggleTabindex =
+      this.props.popUpVisible || this.props.checkoutVisible ? "-1" : "0";
     const product = this.props.products[key];
     if (!product) return null;
     if (product) {
@@ -83,7 +100,13 @@ class Cart extends React.Component {
         <h1>Your shopping cart</h1>
         <ul className="products-in-cart">{orderIds.map(this.renderOrder)}</ul>
         <div className="check-out-container flex-container">
-          <button onClick={()=>{this.props.loadCheckout(total)}}>Checkout</button>
+          <button
+            onClick={() => {
+              this.props.loadCheckout(total);
+            }}
+          >
+            Checkout
+          </button>
           <h2 className="total">Total: {formatPrice(total)}</h2>
         </div>
       </section>
