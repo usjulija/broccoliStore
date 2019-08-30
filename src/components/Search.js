@@ -43,7 +43,7 @@ class Search extends React.Component {
             </svg>
           </button>
         </form>
-        <div className="products-container">
+        <div className="products-container flex-container">
           {this.props.searchedProducts.map(product => (
             <Product
               key={product.id}

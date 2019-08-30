@@ -1,0 +1,240 @@
+.support,
+.login,
+.chat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.support {
+  background-color: #f7e2c2;
+  height: 400px;
+}
+
+.login {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.login > * {
+  margin-bottom: 15px;
+}
+
+.login button {
+  width: 150px;
+  height: 50px;
+  background-color: #ff9800;
+  color: #6c3a32;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.login button:disabled {
+  background-color: transparent;
+  cursor: auto;
+}
+
+.login button:disabled:hover,
+.login button:disabled:focus {
+  background-color: transparent;
+  cursor: auto;
+}
+
+.login button:hover,
+.login button:focus {
+  background-color: #1dd3b0;
+  outline: 0;
+  color: #04534b;
+}
+
+/* Group chat style */
+.chat {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  font-size: 17px;
+}
+
+.chat h1,
+.chat h4 {
+  margin-bottom: 8px;
+}
+
+.chatWindow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  height: 80%;
+  background-color: #fff;
+  color: #6c3a32;
+}
+
+.chatWindow ul {
+  list-style: none;
+  padding: 0px 30px;
+}
+
+.chatWindow form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #f7e2c2;
+}
+
+.chatWindow form input {
+  padding: 0px 30px;
+  height: 50px;
+  width: calc(100% - 50px);
+  border: 0;
+  font-size: 17px;
+  background-color: #f7e2c2;
+  color: #6c3a32;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.chatWindow form input:focus {
+  background-color: #f8f0e3;
+  outline: 0;
+}
+
+.chatWindow form button {
+  width: 50px;
+  height: 50px;
+  border: 0;
+  background-color: #f7e2c2;
+  padding: 10px;
+}
+
+.chatWindow form button:hover,
+.chatWindow form button:focus {
+  background-color: #1dd3b0;
+  outline: 0;
+}
+
+.chatWindow form button:hover svg,
+.chatWindow form button:focus svg {
+  fill: #04534b;
+}
+
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.user .image,
+.admin .image {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-top: -17px;
+}
+
+.user .image {
+  margin-left: 3px;
+  background-color: #baddd2;
+}
+
+.admin .image {
+  margin-right: 3px;
+  background-color: #f7e2c2;
+}
+
+.user .message,
+.admin .message {
+  padding: 6px;
+  max-width: 250px;
+}
+
+.user .message {
+  border-radius: 10px 0 10px 10px;
+  background-color: #baddd2;
+}
+
+.admin .message {
+  border-radius: 0px 10px 10px 10px;
+  background-color: #f7e2c2;
+}
+
+.user .message p:first-child,
+.admin .message p:first-child {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.admin {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.chatList {
+  max-height: 100%;
+  height: 478px;
+  overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+/* style for 600px screens and wider */
+@media screen and (min-width: 600px) {
+  .support {
+    position: fixed;
+    right: 40px;
+    bottom: 50px;
+    width: 550px;
+    z-index: 90;
+    box-shadow: 0px 4px 13px -4px rgba(47, 47, 47, 1);
+  }
+}

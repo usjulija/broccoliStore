@@ -8,6 +8,7 @@ import Cart from "./Cart";
 import Search from "./Search";
 import PopUpMessage from "./PopUpMessage";
 import Checkout from "./Checkout";
+import Support from "./Support";
 import { formatPrice } from "../helper";
 
 class BroccoliStore extends React.Component {
@@ -26,7 +27,17 @@ class BroccoliStore extends React.Component {
     popUpVisible: false, //state of pop up message
     popUpState: "add", //pop up message for "remove", "add", "removeAdmin"
     popUpName: "string", //here should be the name for the selected product
-    checkoutVisible: false //checkout message
+    checkoutVisible: false, //checkout message
+    supportVisible: false, //login and chat visibility
+    //chat functionality
+    username: "", //stores generated user name
+    currentMessage: "",
+    messages: [
+      {
+        senderId: "admin",
+        text: "Hello! How can I help you?"
+      }
+    ]
   };
 
   componentDidMount() {
@@ -34,6 +45,7 @@ class BroccoliStore extends React.Component {
     const localStorageProducts = localStorage.getItem("products");
     const localStorageFiltered = localStorage.getItem("filteredProducts");
     const loadTotalItems = localStorage.getItem("totalItems");
+    //load data from local storage
     if (localStorageOrder) {
       this.setState({
         order: JSON.parse(localStorageOrder),
@@ -48,12 +60,9 @@ class BroccoliStore extends React.Component {
           filteredProducts: JSON.parse(localStorageFiltered)
         });
       } else {
-        this.setState(
-          { products: JSON.parse(localStorageProducts) },
-          () => {
-            this.filterProducts("all");
-          }
-        );
+        this.setState({ products: JSON.parse(localStorageProducts) }, () => {
+          this.filterProducts("all");
+        });
       }
     } else {
       this.setState({ products: grocery }, () => {
@@ -72,6 +81,7 @@ class BroccoliStore extends React.Component {
     );
   }
 
+  //load page content: "products", "adminview", "cart", search
   loadPage = selection => {
     this.setState({ displayContent: selection });
   };
@@ -81,22 +91,7 @@ class BroccoliStore extends React.Component {
     this.setState({ mobileVisible: !this.state.mobileVisible });
   };
 
-  //calculates price with or without discount
-  priceCalculator = (price, discount) => {
-    if (discount > 0) {
-      const percentToDecimal = (100 - discount) / 100;
-      const newPrice = price * percentToDecimal;
-      return (
-        <p className="withDiscount">
-          <span>{formatPrice(price)}</span> {formatPrice(newPrice)}
-        </p>
-      );
-    } else {
-      return <p>{formatPrice(price)}</p>;
-    }
-  };
-
-  //info modal
+  //info modal load and close
   loadModal = (details, adminView) => {
     if (adminView === true) {
       this.setState({ modalAdminView: true });
@@ -111,6 +106,49 @@ class BroccoliStore extends React.Component {
 
   closeModal = () => {
     this.setState({ modalVisible: false });
+  };
+
+  //checkout load and close
+  loadCheckout = price => {
+    this.setState({ checkoutVisible: true, totalPrice: price });
+  };
+
+  closeCheckout = () => {
+    this.setState({ checkoutVisible: false });
+  };
+
+  //load & close pop up
+  loadPopUp = (name, state) => {
+    if (state === "add") {
+      this.setState({
+        popUpState: "add",
+        popUpName: name,
+        popUpVisible: true
+      });
+    } else if (state === "remove") {
+      this.setState({
+        popUpState: "remove",
+        popUpName: name,
+        popUpVisible: true
+      });
+    } else if (state === "removeAdmin") {
+      this.setState({
+        popUpState: "removeAdmin",
+        popUpName: name,
+        popUpVisible: true
+      });
+    }
+  };
+
+  closePopUp = () => {
+    this.setState({
+      popUpVisible: false
+    });
+  };
+
+  //load and close support window
+  toggleSupport = () => {
+    this.setState({ supportVisible: !this.state.supportVisible });
   };
 
   //admin functions:
@@ -177,45 +215,22 @@ class BroccoliStore extends React.Component {
     this.totalItemsCalculator(order);
   };
 
-  //checkout load and close
-  loadCheckout = (price) => {
-    this.setState({checkoutVisible: true, totalPrice: price});
-  }
-
-  closeCheckout = () => {
-    this.setState({checkoutVisible: false});
-  }
-
-  //load & close pop up
-  loadPopUp = (name, state) => {
-    if (state === "add") {
-      this.setState({
-        popUpState: "add",
-        popUpName: name,
-        popUpVisible: true
-      });
-    } else if (state === "remove") {
-      this.setState({
-        popUpState: "remove",
-        popUpName: name,
-        popUpVisible: true
-      });
-    } else if (state === "removeAdmin") {
-      this.setState({
-        popUpState: "removeAdmin",
-        popUpName: name,
-        popUpVisible: true
-      });
+  //calculates price with or without discount
+  priceCalculator = (price, discount) => {
+    if (discount > 0) {
+      const percentToDecimal = (100 - discount) / 100;
+      const newPrice = price * percentToDecimal;
+      return (
+        <p className="withDiscount">
+          <span>{formatPrice(price)}</span> {formatPrice(newPrice)}
+        </p>
+      );
+    } else {
+      return <p>{formatPrice(price)}</p>;
     }
   };
 
-  closePopUp = () => {
-    this.setState({
-      popUpVisible: false
-    });
-  };
-
-  //total number of items in the cart
+  //calculates total number of items in the cart
   totalItemsCalculator = order => {
     const total = Object.keys(order).reduce((prevTotal, key) => {
       if (this.state.products[key]) {
@@ -258,65 +273,164 @@ class BroccoliStore extends React.Component {
     this.setState({ searchedProducts: newArray });
   };
 
+  //chat functionality
+  sendMessage = (message, user) => {
+    const newMessage = {
+      senderId: user,
+      text: message
+    };
+    const messages = this.state.messages.slice();
+    messages.push(newMessage);
+    const messageArray = message.toLowerCase().replace(/[^a-zA-Z ]/g, "").split(" ");
+    console.log(messageArray);
+    this.setState({messages}, () => {
+      this.messageTemplate(messageArray);
+    });
+  }
+
+  messageTemplate = (messageArray) => {
+    if(messageArray.includes("hello") || messageArray.includes("hi")) {
+      const newMessage = {
+        senderId: "admin",
+        text: "Hey! Nice to meet you in our store! How can I help you?"
+      };
+      const messages = this.state.messages.slice();
+      messages.push(newMessage);
+      this.setState({messages});
+    } else if (messageArray.includes("discount") || messageArray.includes("discounts") || messageArray.includes("pay") || messageArray.includes("payment") || messageArray.includes("delivery")) {
+      const newMessage = {
+        senderId: "admin",
+        text: "It is just a store concept! You cannot buy anything real here!"
+      };
+      const messages = this.state.messages.slice();
+      messages.push(newMessage);
+      this.setState({messages});
+    } else if (messageArray.includes("author")) {
+      const newMessage = {
+        senderId: "admin",
+        text: "This application author is Julia Us. To see more her projects visit: https://github.com/usjulija"
+      };
+      const messages = this.state.messages.slice();
+      messages.push(newMessage);
+      this.setState({messages});
+    }
+  }
+
   render() {
     const fixedBackground =
-      this.state.modalVisible || this.state.popUpVisible ? "fixed" : "";
+      this.state.modalVisible ||
+      this.state.popUpVisible ||
+      this.state.checkoutVisible
+        ? "fixed"
+        : "";
+    const toggleTabindex =
+      this.state.modalVisible ||
+      this.state.popUpVisible ||
+      this.state.checkoutVisible
+        ? "-1"
+        : "0";
+    const chatButtonClass = this.state.supportVisible
+      ? "chat-icon flex-container close"
+      : "chat-icon flex-container";
+    const chatButtonMessage = this.state.supportVisible
+      ? "close chat"
+      : "start-chat";
+    const supportContent = (
+      <React.Fragment>
+        <button
+          aria-label="start chat with admin"
+          className={chatButtonClass}
+          tabIndex={toggleTabindex}
+          onClick={this.toggleSupport}>
+          <p>{chatButtonMessage}</p>
+          <div className="dots-container flex-container">
+            <div className="dot-one"></div>
+            <div className="dot-two"></div>
+            <div className="dot-three"></div>
+          </div>
+          <div className="bottom-arrow"></div>
+        </button>
+        <Support 
+          supportVisible={this.state.supportVisible} 
+          messages={this.state.messages}
+          sendMessage={this.sendMessage}
+          user="client"
+          modalVisible={this.state.modalVisible}
+          popUpVisible={this.state.popUpVisible}
+          checkoutVisible={this.state.checkoutVisible}
+          />
+      </React.Fragment>
+    );
     let content;
     if (this.state.displayContent === "products") {
       content = (
-        <ProductsGallery
-          modalVisible={this.state.modalVisible}
-          popUpVisible={this.state.popUpVisible}
-          products={this.state.products}
-          filteredProducts={this.state.filteredProducts}
-          loadModal={this.loadModal}
-          priceCalculator={this.priceCalculator}
-          addToCart={this.addToCart}
-          filterProducts={this.filterProducts}
-          />
-          );
-        } else if (this.state.displayContent === "adminview") {
-          content = (
-            <AdminView
-            products={this.state.products}
-            addProductToStore={this.addProductToStore}
-            loadPage={this.loadPage}
-            loadModal={this.loadModal}
+        <React.Fragment>
+          {supportContent}
+          <ProductsGallery
             modalVisible={this.state.modalVisible}
             popUpVisible={this.state.popUpVisible}
-            updateProduct={this.updateProduct}
-            removeProduct={this.removeProduct}
-            />
-            );
-          } else if (this.state.displayContent === "cart") {
-            content = (
-              <Cart
-              loadPage={this.loadPage}
-              order={this.state.order}
-              products={this.state.products}
-              removeFromCart={this.removeFromCart}
-              addToCart={this.addOneItem}
-              removeOneItem={this.removeOneItem}
-              popUpVisible={this.state.popUpVisible}
-              loadCheckout={this.loadCheckout}
-              checkoutVisible={this.state.checkoutVisible}
-              />
+            products={this.state.products}
+            filteredProducts={this.state.filteredProducts}
+            loadModal={this.loadModal}
+            priceCalculator={this.priceCalculator}
+            addToCart={this.addToCart}
+            filterProducts={this.filterProducts}
+          />
+        </React.Fragment>
+      );
+    } else if (this.state.displayContent === "adminview") {
+      content = (
+        <AdminView
+          products={this.state.products}
+          addProductToStore={this.addProductToStore}
+          loadPage={this.loadPage}
+          loadModal={this.loadModal}
+          modalVisible={this.state.modalVisible}
+          popUpVisible={this.state.popUpVisible}
+          updateProduct={this.updateProduct}
+          removeProduct={this.removeProduct}
+          toggleSupport={this.toggleSupport}
+          supportVisible={this.state.supportVisible}
+          messages={this.state.messages}
+          sendMessage={this.sendMessage}
+          checkoutVisible={this.state.checkoutVisible}
+        />
+      );
+    } else if (this.state.displayContent === "cart") {
+      content = (
+        <React.Fragment>
+          {supportContent}
+          <Cart
+            loadPage={this.loadPage}
+            order={this.state.order}
+            products={this.state.products}
+            removeFromCart={this.removeFromCart}
+            addToCart={this.addOneItem}
+            removeOneItem={this.removeOneItem}
+            popUpVisible={this.state.popUpVisible}
+            loadCheckout={this.loadCheckout}
+            checkoutVisible={this.state.checkoutVisible}
+          />
+        </React.Fragment>
       );
     } else if (this.state.displayContent === "search") {
       content = (
-        <Search
-          loadModal={this.loadModal}
-          loadPage={this.loadPage}
-          modalVisible={this.state.modalVisible}
-          popUpVisible={this.state.popUpVisible}
-          searchProducts={this.searchProducts}
-          searchedProducts={this.state.searchedProducts}
-          priceCalculator={this.priceCalculator}
-          addToCart={this.addToCart}
-        />
+        <React.Fragment>
+          {supportContent}
+          <Search
+            loadModal={this.loadModal}
+            loadPage={this.loadPage}
+            modalVisible={this.state.modalVisible}
+            popUpVisible={this.state.popUpVisible}
+            searchProducts={this.searchProducts}
+            searchedProducts={this.state.searchedProducts}
+            priceCalculator={this.priceCalculator}
+            addToCart={this.addToCart}
+          />
+        </React.Fragment>
       );
-    } 
-    
+    }
+
     return (
       <React.Fragment>
         <Modal
@@ -337,7 +451,8 @@ class BroccoliStore extends React.Component {
           checkoutVisible={this.state.checkoutVisible}
           closeCheckout={this.closeCheckout}
           totalItems={this.state.totalItems}
-          totalPrice={this.state.totalPrice}/>
+          totalPrice={this.state.totalPrice}
+        />
         <div className={fixedBackground}>
           <StoreMenu
             toggleNavMenu={this.toggleNavMenu}

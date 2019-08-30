@@ -38,7 +38,7 @@ body {
 }
 
 .logo-font {
-  font-family: "Amatic SC", cursive;
+  font-family: "Amatic SC", "Arial";
 }
 
 .fixed {
@@ -64,6 +64,8 @@ button {
   transition: 0.5s;
   -webkit-transition: 0.5s;
 }
+
+/* back-to-store button */
 
 .back-to-store {
   width: 100%;
@@ -96,6 +98,198 @@ button {
   background-color: var(--highlight-blue);
   outline: 0;
   color: var(--highlight-dark);
+}
+
+/* chat button for mobile */
+.chat-icon {
+  width: 100%;
+  height: 50px;
+  border: 0;
+  background-color: #4caf50;
+  bottom: 45px;
+  right: 15px;
+  box-shadow: 0px 4px 13px -4px rgba(163, 163, 163, 1);
+}
+
+.chat-icon p {
+  text-transform: uppercase;
+  color: white;
+  padding: 8px;
+  font-weight: bold;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.bottom-arrow {
+  display: none;
+  left: 13px;
+  top: 34px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px;
+  border-color: transparent #4caf50 transparent transparent;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.dots-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dot-one {
+  width: 25px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 10%;
+  margin: 3px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.dot-two {
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 9px;
+  border-color: transparent #fff transparent transparent;
+  margin-top: -13px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.dot-three {
+  display: none;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.chat-icon:hover,
+.chat-icon:focus {
+  background-color: var(--highlight-blue);
+  outline: 0;
+  color: var(--highlight-dark);
+}
+
+.chat-icon:hover p,
+.chat-icon:focus p {
+  color: var(--highlight-dark);
+}
+
+.chat-icon:hover .dot-two,
+.chat-icon:focus .dot-two {
+  border-color: transparent var(--highlight-dark) transparent transparent;
+}
+
+.chat-icon:hover .bottom-arrow,
+.chat-icon:focus .bottom-arrow {
+  border-color: transparent var(--highlight-blue) transparent transparent;
+}
+
+.chat-icon:hover .dot-one,
+.chat-icon:hover .dot-three,
+.chat-icon:focus .dot-one,
+.chat-icon:focus .dot-three {
+  background-color: var(--highlight-dark);
+}
+
+/* Once support window is open */
+.chat-icon.close .dot-one,
+.chat-icon.close .dot-two {
+  width: 35px;
+  height: 3px;
+  border: 0;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.chat-icon.close .dot-one {
+  -webkit-transform: rotate(-45deg) translate(-1px, -7px);
+          transform: rotate(-45deg) translate(-1px, -7px);
+}
+
+.chat-icon.close .dot-two {
+  -webkit-transform: rotate(45deg) translate(0px, 4px);
+          transform: rotate(45deg) translate(0px, 4px);
+}
+
+.chat-icon.close:hover .dot-one,
+.chat-icon.close:hover .dot-two,
+.chat-icon.close:focus .dot-one,
+.chat-icon.close:focus .dot-two {
+  background-color: var(--highlight-dark) !important;
+  border: 0;
+}
+
+#admin {
+  max-width: 326px;
+}
+
+/* style for 600px screens and wider */
+@media screen and (min-width: 600px) {
+  .chat-icon {
+    width: 50px;
+    border-radius: 10%;
+    position: fixed;
+  }
+  .chat-icon p {
+    display: none;
+  }
+  .dots-container {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .dot-one,
+  .dot-two,
+  .dot-three {
+    display: inline;
+    width: 7px;
+    height: 7px;
+    background-color: #fff;
+    border: 0;
+    border-radius: 50%;
+    margin: 3px;
+  }
+  .bottom-arrow {
+    display: block;
+  }
+  .chat-icon:hover .dot-two,
+  .chat-icon:focus .dot-two {
+    background-color: var(--highlight-dark);
+  }
+  /* open support window */
+  .chat-icon.close {
+    z-index: 95;
+    bottom: 402px;
+    right: 39px;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .chat-icon.close .dot-one,
+  .chat-icon.close .dot-two {
+    border-radius: 0;
+    background-color: var(--brown);
+  }
+  .chat-icon.close .dot-one {
+    -webkit-transform: rotate(-45deg) translate(16px, 15px);
+            transform: rotate(-45deg) translate(16px, 15px);
+  }
+  .chat-icon.close .dot-two {
+    -webkit-transform: rotate(45deg) translate(-13px, 13px);
+            transform: rotate(45deg) translate(-13px, 13px);
+  }
+  .chat-icon.close .dot-three {
+    display: none;
+  }
+  .chat-icon.close .bottom-arrow {
+    display: none;
+  }
 }
 
 /* ===== StoreMenu style ===== */
@@ -404,6 +598,10 @@ nav {
   flex-flow: row wrap;
 }
 
+.products-container {
+  padding: 0 60px;
+}
+
 /* categories style for desktop */
 .categories-container {
   -ms-flex-pack: distribute;
@@ -566,6 +764,9 @@ nav {
 /* ===== Responsive for products gallery ===== */
 /* for screens of 600px and smaller */
 @media screen and (max-width: 600px) {
+  .products-container {
+    padding: 0;
+  }
   .categories-container {
     display: none;
   }
