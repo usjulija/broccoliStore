@@ -1,8 +1,8 @@
-#Broccoli Store
-##Project Overview
+# Broccoli Store
+## Project Overview
 This is a grocery store concept, created using React. Only front-end functionality is covered in the project, no server is used. From client side it is possible to search products, filter products by category, add products to the cart. From administrator side it is possible to add, modify and remove products. Simple chat functionality is added. All functionality is open to play around.
 
-##Project specifics
+## Project specifics
 Design mockup was provided by Hostinger. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Implemented features:
 * Products can be filtered by category
@@ -20,13 +20,13 @@ Implemented features:
 * CSS animations by [Justin Aguilar](http://www.justinaguilar.com/animations/#)
 * Products images are from real store [barbora](https://www.barbora.lt/)
 
-##Dependencies
+## Dependencies
 *[react-router-dom](https://www.npmjs.com/package/react-router-dom) - renders different pages in the store: main page with animation and store page
 *[prop-types](https://www.npmjs.com/package/prop-types)  - used to define types of props used in the application
 *[enzyme](https://airbnb.io/enzyme/) - as an addition to testing tools, is used for shallow rendering
 * Local Storage - is used to store some data right in the browser
 
-##Project structure
+## Project structure
 The structure of the app:
 ```bash
 ├── README.md - This file.
