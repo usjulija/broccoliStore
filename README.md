@@ -21,9 +21,9 @@ Implemented features:
 * Products images are from real store [barbora](https://www.barbora.lt/)
 
 ## Dependencies
-*[react-router-dom](https://www.npmjs.com/package/react-router-dom) - renders different pages in the store: main page with animation and store page
-*[prop-types](https://www.npmjs.com/package/prop-types)  - used to define types of props used in the application
-*[enzyme](https://airbnb.io/enzyme/) - as an addition to testing tools, is used for shallow rendering
+* [react-router-dom](https://www.npmjs.com/package/react-router-dom) - renders different pages in the store: main page with animation and store page
+* [prop-types](https://www.npmjs.com/package/prop-types)  - used to define types of props used in the application
+* [enzyme](https://airbnb.io/enzyme/) - as an addition to testing tools, is used for shallow rendering
 * Local Storage - is used to store some data right in the browser
 
 ## Project structure
