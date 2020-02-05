@@ -3,7 +3,7 @@
 This is a grocery store concept, created using React. Only front-end functionality is covered in the project, no server is used. From client side it is possible to search products, filter products by category, add products to the cart. From administrator side it is possible to add, modify and remove products. Simple chat functionality is added. All functionality is open to play around.
 
 ## Project specifics
-Design mockup was provided by Hostinger. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Implemented features:
 * Products can be filtered by category
 * Search functionality
